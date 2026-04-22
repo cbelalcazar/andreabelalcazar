@@ -2,8 +2,27 @@ import { ArrowRight, Mic, Shield, Target, Briefcase, Globe, Mail, Phone, Chevron
 import Image from "next/image";
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Andrea Belalcázar",
+    "jobTitle": "Estratega de Comunicación y Analista Política",
+    "url": "https://www.andreabelalcazar.com",
+    "image": "https://www.andreabelalcazar.com/portrait.jpg",
+    "sameAs": [
+      "https://www.linkedin.com/in/andreabelalcazar",
+      "https://twitter.com/andreabelalcazar"
+    ],
+    "description": "Profesional en Mercadeo y Estratega Política con experiencia en campañas presidenciales y gestión pública en Colombia.",
+    "knowsAbout": ["Comunicación Política", "Gestión de Crisis", "Marketing Digital", "Análisis Político"]
+  };
+
   return (
     <main className="min-h-screen bg-[#0A0A0B] text-slate-300 font-sans selection:bg-amber-500/30 selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
       {/* GLOBAL OVERLAYS */}
       <div className="fixed inset-0 pointer-events-none z-50 border-[16px] md:border-[32px] border-[#0A0A0B]"></div>
