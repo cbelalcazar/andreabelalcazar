@@ -1,4 +1,4 @@
-import { ArrowRight, Mic, Shield, Target, Briefcase, Globe, Mail, Phone, Instagram, Twitter, Linkedin, ChevronRight, Quote, Plus } from "lucide-react";
+import { ArrowRight, Mic, Shield, Target, Briefcase, Globe, Mail, Phone, ChevronRight, Quote, Plus } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -218,8 +218,8 @@ export default function Home() {
         <div className="w-full max-w-[1400px] mt-40 flex flex-col md:flex-row justify-between items-center gap-10 border-t border-white/5 pt-12 px-8 text-[9px] uppercase tracking-[0.4em] text-slate-700 font-bold">
            <div>A. Belalcázar © 2026 / Cali, Colombia</div>
            <div className="flex gap-12 text-slate-500">
-              <a href="#" className="hover:text-amber-500 transition-colors">LinkedIn</a>
-              <a href="#" className="hover:text-amber-500 transition-colors">Twitter</a>
+              <a href="https://wa.me/573105354473" className="hover:text-amber-500 transition-colors uppercase tracking-widest">WhatsApp</a>
+              <a href="#" className="hover:text-amber-500 transition-colors uppercase tracking-widest">LinkedIn</a>
            </div>
         </div>
       </footer>
