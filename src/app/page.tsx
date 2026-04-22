@@ -1,4 +1,5 @@
 import { ArrowRight, Mic, Shield, Target, Briefcase, Globe, Mail, Phone, Instagram, Twitter, Linkedin, ChevronRight, Quote, Plus } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
