@@ -49,8 +49,10 @@ export async function enviarContacto(_prev: ContactState, formData: FormData): P
   }
   const resend = new Resend(key);
   const to = (process.env.CONTACT_TO_EMAIL ?? site.email).trim().replace(/^"|"$/g, "");
-  const from =
-    (process.env.CONTACT_FROM_EMAIL ?? "").trim().replace(/^"|"$/g, "") || "Web Andrea Belalcázar <web@labrujaa.com>";
+  // Resend exige ASCII en el campo from: se quitan tildes del nombre visible (Belalcázar -> Belalcazar).
+  const rawFrom =
+    (process.env.CONTACT_FROM_EMAIL ?? "").trim().replace(/^"|"$/g, "") || "Web Andrea Belalcazar <web@labrujaa.com>";
+  const from = rawFrom.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const { error } = await resend.emails.send({
     // El remitente debe pertenecer a un dominio verificado en Resend. Hoy el único verificado en la cuenta
     // es labrujaa.com; al verificar andreabelalcazar.com basta cambiar CONTACT_FROM_EMAIL en Vercel.
