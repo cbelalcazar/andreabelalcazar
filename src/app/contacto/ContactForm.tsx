@@ -102,6 +102,9 @@ export default function ContactForm() {
       {state.message && !state.ok && (
         <p role="alert" className="text-sm text-accent">
           {state.message}
+          {state.detail ? (
+            <span className="mt-1 block text-[12px] text-muted">Detalle técnico: {state.detail}</span>
+          ) : null}
         </p>
       )}
       <button
