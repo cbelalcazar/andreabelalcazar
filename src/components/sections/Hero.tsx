@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { hero, site } from "@/content/site";
 import WhatsAppLink from "@/components/analytics/WhatsAppLink";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
@@ -54,12 +55,12 @@ export default function Hero() {
               <WhatsAppIcon className="h-5 w-5" />
               {hero.ctaPrimary}
             </WhatsAppLink>
-            <a
-              href="#trayectoria"
+            <Link
+              href="/casos"
               className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/15 px-8 text-sm font-semibold text-white transition-colors hover:bg-white/5"
             >
               {hero.ctaSecondary}
-            </a>
+            </Link>
           </div>
 
           <ul

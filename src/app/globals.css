@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /*
  * `@theme inline` es obligatorio aquí: las variables --font-inter/--font-playfair
@@ -49,5 +50,22 @@
   }
   .eyebrow {
     @apply text-xs font-semibold tracking-[0.14em] text-gold uppercase;
+  }
+}
+
+/* Prosa de artículos y páginas de contenido (tema oscuro) */
+@layer components {
+  .prose-site {
+    @apply prose max-w-none prose-invert prose-headings:font-serif prose-headings:font-normal prose-headings:text-balance prose-headings:text-white prose-h2:mt-12 prose-h2:text-3xl prose-h3:text-xl prose-p:leading-relaxed prose-p:text-paper/85 prose-a:text-gold prose-a:underline-offset-4 prose-blockquote:border-gold/60 prose-blockquote:font-serif prose-blockquote:text-xl prose-blockquote:text-paper prose-blockquote:not-italic prose-strong:text-white prose-code:text-gold prose-li:text-paper/85 prose-img:rounded-xl prose-hr:border-line;
+  }
+  .prose-site h2 a,
+  .prose-site h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .prose-site h2 a:hover::after,
+  .prose-site h3 a:hover::after {
+    content: " #";
+    color: var(--color-gold);
   }
 }

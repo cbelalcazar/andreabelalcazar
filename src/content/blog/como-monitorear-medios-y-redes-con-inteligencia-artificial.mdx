@@ -1,0 +1,133 @@
+---
+title: "Cómo monitorear medios y redes con IA sin perder el criterio"
+description: "Cómo monitorear medios y redes con inteligencia artificial: qué automatizar, cómo clasificar menciones, qué revisar a mano y qué errores evitar en el proceso."
+date: "2026-09-12"
+tema: "ia"
+tags: ["monitoreo de medios", "inteligencia artificial", "redes sociales", "clipping", "reputación"]
+faq:
+  - q: "¿Qué es el monitoreo de medios con inteligencia artificial?"
+    a: "Es el uso de modelos de lenguaje y herramientas automatizadas para recolectar, clasificar y resumir menciones en prensa, radio, televisión y redes sociales. La IA acelera la lectura y la etiquetación; la interpretación de lo que significa cada mención sigue siendo trabajo humano."
+  - q: "¿Puede la IA detectar el sentimiento de una mención correctamente?"
+    a: "Detecta el tono general con precisión aceptable, pero falla con la ironía, el sarcasmo, los regionalismos y el contexto político. Por eso se recomienda revisar una muestra diaria de la clasificación automática y corregir las etiquetas antes de reportar resultados."
+  - q: "¿Qué herramientas se necesitan para monitorear medios con IA?"
+    a: "Una fuente de datos que recolecte menciones, un modelo de lenguaje para clasificar y resumir, una hoja de cálculo o tablero para consolidar, y una persona con criterio para revisar. La herramienta importa menos que el proceso y las categorías definidas."
+draft: false
+---
+
+Monitorear medios y redes con inteligencia artificial consiste en automatizar la recolección y la primera clasificación de menciones. Las personas conservan la interpretación y la decisión. La IA lee más rápido; el equipo de prensa decide qué importa, qué se responde y qué se escala. Sin esa división, el monitoreo se convierte en un reporte bonito que nadie usa.
+
+Este artículo describe un proceso que se puede montar con herramientas accesibles y sin un equipo de datos. Lo importante no es la tecnología sino las categorías, la rutina y la revisión.
+
+## ¿Qué cambia cuando la IA entra al monitoreo?
+
+Cambia la escala. Un equipo pequeño que antes revisaba veinte notas al día puede procesar cientos de menciones. También cambia la velocidad: una alerta que antes tardaba horas en llegar ahora llega en minutos.
+
+Lo que no cambia es la pregunta de fondo. El [monitoreo de medios](/glosario/monitoreo-de-medios) existe para responder qué se dice de la entidad, quién lo dice, con qué alcance y qué debemos hacer al respecto. Si la IA no ayuda a responder eso, solo está generando ruido más rápido.
+
+### Lo que la IA hace bien
+
+- Recolectar menciones de fuentes diversas en un solo lugar.
+- Clasificar por tema, tono, canal y urgencia con reglas consistentes.
+- Resumir una nota larga en dos o tres líneas para lectura rápida.
+- Detectar picos inusuales de volumen que pueden anticipar una crisis.
+- Agrupar menciones similares para ver narrativas en lugar de comentarios sueltos.
+
+### Lo que la IA hace mal o no debe hacer
+
+- Interpretar ironía, sarcasmo o humor regional. En Colombia, esto es un problema real.
+- Distinguir una crítica legítima de una campaña coordinada de [desinformación](/glosario/desinformacion).
+- Decidir qué se responde y qué se ignora.
+- Redactar respuestas públicas sin supervisión.
+- Evaluar el peso político de quien emite la mención.
+
+## Paso 1: definir las categorías antes de encender la herramienta
+
+El error más común es empezar a recolectar sin saber qué se busca. El resultado es un archivo con miles de filas y ninguna conclusión. Antes de automatizar, el equipo define las categorías.
+
+| Dimensión | Categorías sugeridas                                                           | Para qué sirve                                                     |
+| --------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| Tema      | Programas, funcionarios, presupuesto, servicios, eventos, otros.               | Saber qué asuntos concentran la conversación.                      |
+| Tono      | Favorable, neutro, crítico, hostil.                                            | Medir la temperatura sin caer en positivo o negativo simplificado. |
+| Canal     | Prensa escrita, radio, TV, portales, X, Facebook, Instagram, TikTok, WhatsApp. | Entender dónde ocurre la conversación.                             |
+| Urgencia  | Informativo, requiere respuesta, requiere escalamiento.                        | Priorizar el trabajo del equipo.                                   |
+| Fuente    | Medio, periodista, líder de opinión, ciudadano, cuenta anónima.                | Ponderar el alcance y la credibilidad.                             |
+
+Cuatro tonos son mejores que dos. «Crítico» y «hostil» no son lo mismo y exigen respuestas distintas.
+
+## Paso 2: montar el flujo de recolección y clasificación
+
+Con las categorías definidas, el flujo tiene cuatro etapas. Puede correr con herramientas de monitoreo comerciales, con alertas de búsqueda y con un modelo de lenguaje para clasificar.
+
+1. **Recolectar.** Las menciones llegan de alertas, herramientas de escucha social y revisión de medios locales. Todo se consolida en una sola tabla.
+2. **Clasificar.** Un modelo de lenguaje etiqueta cada mención según las cinco dimensiones. El prompt incluye las categorías exactas y ejemplos de cada una.
+3. **Resumir.** Para notas largas, la IA genera un resumen de dos líneas con el ángulo principal.
+4. **Alertar.** Las menciones marcadas como «requiere escalamiento» llegan de inmediato al jefe de prensa por un canal directo.
+
+### Un prompt de clasificación que funciona
+
+Un prompt útil describe el rol, lista las categorías con definiciones cortas, da dos ejemplos por categoría y pide la salida en formato de tabla. También incluye una instrucción para marcar «dudoso» cuando el modelo no esté seguro. Esa etiqueta es la que revisa el equipo primero.
+
+## Paso 3: revisar a mano una muestra todos los días
+
+Aquí se conserva el criterio. Cada día, una persona revisa una muestra de la clasificación automática. Veinte o treinta menciones al azar, más todas las marcadas como dudosas o de escalamiento.
+
+Esa revisión tiene tres objetivos. Corregir etiquetas erradas, detectar categorías que faltan y ajustar el prompt cuando el error se repite. Sin este paso, los errores del modelo se acumulan y el reporte pierde credibilidad ante los directivos.
+
+### Cuidado con el sesgo de la herramienta
+
+Los modelos de lenguaje tienen sesgos en el lenguaje y en la interpretación. Pueden marcar como hostil un comentario escrito en jerga regional o como neutro una ironía evidente. El [marco de gestión de riesgos de IA del NIST](https://www.nist.gov/itl/ai-risk-management-framework) recomienda medir y documentar estos errores en lugar de asumir que no existen.
+
+En la práctica, basta con llevar un registro de los errores más frecuentes y de los cambios hechos al prompt. Ese registro es también la evidencia de que el proceso tiene supervisión humana.
+
+## Paso 4: convertir las menciones en información útil
+
+Un reporte de monitoreo no es una lista de menciones. Es una lectura de la conversación con recomendaciones. La IA ayuda a preparar el borrador del reporte; el análisis final lo escribe el equipo.
+
+### Estructura de un reporte semanal
+
+- Volumen total y comparación con la semana anterior.
+- Tres temas que concentraron la conversación y su tono predominante.
+- Menciones de mayor alcance y quién las emitió.
+- Narrativas emergentes: agrupaciones de menciones que apuntan a un mismo relato.
+- Riesgos detectados y recomendación de acción.
+- Correcciones publicadas y su efecto.
+
+El reporte se lee en cinco minutos. Si toma más, tiene demasiados datos y poco análisis. Para elegir qué indicadores incluir, en [cómo medir una estrategia de comunicación](/blog/como-medir-una-estrategia-de-comunicacion-indicadores-que-importan) hay una guía de los que importan.
+
+## Consideraciones de confidencialidad y datos personales
+
+El monitoreo recolecta nombres, opiniones y a veces datos sensibles de ciudadanos. Ese tratamiento está sujeto a la Ley 1581 de 2012. Cargar esas menciones a un modelo de lenguaje implica compartirlas con un tercero.
+
+Por eso conviene revisar los términos de uso de la herramienta, evitar almacenar datos personales más allá de lo necesario y anonimizar cuando sea posible. La [Superintendencia de Industria y Comercio](https://www.sic.gov.co/) publica guías sobre tratamiento de datos que ayudan a definir estos límites.
+
+También hay una consideración de reputación. Un ciudadano que descubre que su comentario fue procesado y archivado por una entidad pública puede sentirse vigilado. El monitoreo debe orientarse a entender la conversación, no a perfilar personas.
+
+## Errores frecuentes al monitorear con IA
+
+- Automatizar sin categorías definidas y terminar con datos que nadie interpreta.
+- Confiar en el análisis de sentimiento sin revisar muestras.
+- Reportar volumen de menciones como si fuera un logro o un fracaso en sí mismo.
+- Ignorar medios locales y radio porque la herramienta solo rastrea redes.
+- Dejar que el reporte crezca hasta que nadie lo lee.
+- Olvidar que el [clipping](/glosario/clipping) tradicional sigue siendo necesario para prensa impresa y televisión regional.
+
+## Checklist para un monitoreo con IA y criterio
+
+- [ ] Categorías definidas por escrito para tema, tono, canal, urgencia y fuente.
+- [ ] Fuentes de recolección que incluyen medios locales, radio y televisión, no solo redes.
+- [ ] Prompt de clasificación con definiciones, ejemplos y etiqueta de «dudoso».
+- [ ] Canal directo de alerta para menciones de escalamiento.
+- [ ] Revisión diaria de una muestra y de todas las menciones dudosas.
+- [ ] Registro de errores frecuentes y de ajustes al prompt.
+- [ ] Términos de uso de la herramienta revisados frente a la Ley 1581 de 2012.
+- [ ] Reporte semanal con análisis y recomendaciones, no solo datos.
+
+## Para llevar
+
+- La IA escala la recolección y la clasificación; la interpretación sigue siendo humana.
+- Las categorías se definen antes de automatizar, no después.
+- Una muestra revisada a mano cada día mantiene la credibilidad del reporte.
+- El monitoreo trata datos personales y debe respetar la Ley 1581 de 2012.
+- Un reporte útil se lee en cinco minutos y termina en recomendaciones.
+
+Si su entidad quiere montar un monitoreo que combine tecnología y criterio, conozca el servicio de [jefatura de prensa y relación con medios](/servicios/jefatura-de-prensa). También puede escribirme por WhatsApp desde la [página de contacto](/contacto).

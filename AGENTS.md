@@ -14,6 +14,7 @@ Contexto completo, hallazgos y roadmap: `AUDITORIA-2026-09.md` (IDs tipo S-01, P
 - No existe `middleware.ts`: es `proxy.ts` (runtime Node). Hoy no hay proxy; las cabeceras van en `next.config.ts`.
 - `params`/`searchParams` son `Promise`. `revalidateTag(tag, "max")` lleva dos argumentos.
 - Lint: `eslint .` (no `next lint`). Node ≥ 20.9 (`.nvmrc` = 22).
+- Contenido en MDX bajo `src/content/{servicios,casos,blog,glosario}` con frontmatter validado por Zod en `src/lib/content.ts` (descripciones 100–170 caracteres). Plugins remark/rehype como strings (Turbopack). `typedRoutes` está desactivado a propósito (hrefs dinámicos).
 
 ## Convenciones
 - Server Components por defecto. Cada `"use client"` lleva un comentario de una línea con el motivo.

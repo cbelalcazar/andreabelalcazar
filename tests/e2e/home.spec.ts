@@ -78,7 +78,7 @@ test.describe("navegación móvil", () => {
     await button.click();
     const dialog = page.getByRole("dialog", { name: "Menú principal" });
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole("link", { name: "Trayectoria" })).toBeVisible();
+    await expect(dialog.getByRole("link", { name: "Casos" })).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(dialog).toBeHidden();
     await expect(page.getByRole("button", { name: "Abrir menú" })).toBeFocused();
@@ -89,7 +89,7 @@ test.describe("navegación móvil", () => {
     const float = page.locator('a[data-placement="float"]');
     // Oculto mientras el hero está visible
     await expect(float.locator("..")).toHaveAttribute("aria-hidden", "true");
-    await page.getByRole("link", { name: "Ver trayectoria" }).scrollIntoViewIfNeeded();
+    await page.getByRole("link", { name: "Ver casos" }).scrollIntoViewIfNeeded();
     await page.mouse.wheel(0, 2000);
     await expect(float.locator("..")).toHaveAttribute("aria-hidden", "false");
     await expect(float).toHaveAttribute("aria-label", /WhatsApp/);

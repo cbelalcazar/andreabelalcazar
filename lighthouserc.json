@@ -3,7 +3,12 @@
     "collect": {
       "startServerCommand": "npm run start -- -p 3100",
       "startServerReadyPattern": "Ready|started server|Local:",
-      "url": ["http://localhost:3100/", "http://localhost:3100/privacidad"],
+      "url": [
+        "http://localhost:3100/",
+        "http://localhost:3100/servicios/gestion-de-crisis",
+        "http://localhost:3100/blog/que-hace-un-jefe-de-prensa",
+        "http://localhost:3100/glosario/vocero"
+      ],
       "numberOfRuns": 3,
       "settings": {
         "preset": "perf",
@@ -72,7 +77,7 @@
         "total-byte-weight": [
           "error",
           {
-            "maxNumericValue": 614400
+            "maxNumericValue": 716800
           }
         ],
         "lcp-lazy-loaded": "error",

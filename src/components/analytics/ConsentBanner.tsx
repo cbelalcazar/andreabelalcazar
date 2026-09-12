@@ -1,6 +1,7 @@
 "use client"; // lee/escribe la decisión de consentimiento en localStorage
 
 import Link from "next/link";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { useEffect, useSyncExternalStore } from "react";
 
 const KEY = "ab-consent-v1";
@@ -41,7 +42,7 @@ function applyConsent(choice: Choice) {
   });
 }
 
-export default function ConsentBanner() {
+export default function ConsentBanner({ gaId }: { gaId: string }) {
   const choice = useSyncExternalStore(subscribe, readChoice, getServerSnapshot);
 
   // Sincroniza GA con la decisión guardada (sistema externo: gtag)
@@ -61,6 +62,8 @@ export default function ConsentBanner() {
 
   return (
     <>
+      {/* gtag.js (~190 KB) solo se descarga cuando el visitante acepta */}
+      {choice === "granted" && <GoogleAnalytics gaId={gaId} />}
       {choice === "none" && (
         <div
           role="region"

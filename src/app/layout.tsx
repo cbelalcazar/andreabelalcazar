@@ -46,7 +46,8 @@ export const metadata: Metadata = {
   creator: site.name,
   publisher: site.name,
   category: "Comunicación política",
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
+  verification: { google: "gIM0v2i00yNmjc_jssnPoK93URB4449vWmz1DxKs25E" },
   formatDetection: { telephone: false, address: false, email: false },
   openGraph: {
     type: "profile",
@@ -80,7 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang={site.locale} className={`${inter.variable} ${playfair.variable}`} data-scroll-behavior="smooth">
       <body>
-        {process.env.NEXT_PUBLIC_GA_ID ? (
+        {site.gaId ? (
           // Consent Mode v2: denegado por defecto antes de que cargue GA (solo permitido en el root layout)
           <Script id="consent-default" strategy="beforeInteractive">
             {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});`}

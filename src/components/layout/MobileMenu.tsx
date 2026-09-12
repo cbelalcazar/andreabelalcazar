@@ -1,5 +1,6 @@
 "use client"; // estado abierto/cerrado, foco y tecla Escape
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { site } from "@/content/site";
 import WhatsAppLink from "@/components/analytics/WhatsAppLink";
@@ -76,14 +77,14 @@ export default function MobileMenu() {
             <ul className="flex flex-col gap-2">
               {site.nav.map((item, i) => (
                 <li key={item.href}>
-                  <a
+                  <Link
                     ref={i === 0 ? firstLinkRef : undefined}
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className="block rounded-lg px-3 py-4 font-serif text-3xl text-paper hover:bg-white/5 hover:text-gold"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

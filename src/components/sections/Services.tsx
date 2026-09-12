@@ -1,4 +1,5 @@
 import { Briefcase, Mic, Shield, Target } from "lucide-react";
+import Link from "next/link";
 import { services } from "@/content/site";
 import WhatsAppLink from "@/components/analytics/WhatsAppLink";
 
@@ -44,14 +45,21 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-                <WhatsAppLink
-                  placement="services"
-                  topic={s.id}
-                  className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-gold hover:text-paper"
-                >
-                  Consultar este servicio
-                  <span aria-hidden="true">→</span>
-                </WhatsAppLink>
+                <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+                  <Link
+                    href={`/servicios/${s.id}`}
+                    className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-gold hover:text-paper"
+                  >
+                    Ver servicio <span aria-hidden="true">→</span>
+                  </Link>
+                  <WhatsAppLink
+                    placement="services"
+                    topic={s.id}
+                    className="inline-flex min-h-11 items-center text-sm text-muted hover:text-gold"
+                  >
+                    Consultar por WhatsApp
+                  </WhatsAppLink>
+                </div>
               </li>
             );
           })}

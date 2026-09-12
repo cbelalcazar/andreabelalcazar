@@ -26,6 +26,6 @@ describe("contenido verificado", () => {
   });
 
   it("la navegación apunta a secciones existentes", () => {
-    expect(site.nav.map((n) => n.href)).toEqual(["#perfil", "#servicios", "#trayectoria", "#contacto"]);
+    expect(site.nav.map((n) => n.href)).toEqual(["/servicios", "/casos", "/blog", "/sobre-mi", "/contacto"]);
   });
 });

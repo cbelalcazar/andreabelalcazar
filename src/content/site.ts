@@ -29,6 +29,8 @@ export const site = {
     display: "+57 310 535 4473",
   },
   email: "belalcazarmarketingdigital@gmail.com",
+  /** ID de medición GA4 (público por diseño). NEXT_PUBLIC_GA_ID lo sobreescribe. */
+  gaId: process.env.NEXT_PUBLIC_GA_ID ?? "G-5S474KXVJ8",
   /**
    * TODO(andrea): añadir solo perfiles verificados. El perfil de X/Twitter
    * "andreabelalcazar" no existe (404) y el de LinkedIn no pudo verificarse,
@@ -36,10 +38,11 @@ export const site = {
    */
   sameAs: [] as string[],
   nav: [
-    { href: "#perfil", label: "Perfil" },
-    { href: "#servicios", label: "Servicios" },
-    { href: "#trayectoria", label: "Trayectoria" },
-    { href: "#contacto", label: "Contacto" },
+    { href: "/servicios", label: "Servicios" },
+    { href: "/casos", label: "Casos" },
+    { href: "/blog", label: "Blog" },
+    { href: "/sobre-mi", label: "Sobre mí" },
+    { href: "/contacto", label: "Contacto" },
   ],
 } as const;
 
@@ -48,7 +51,7 @@ export const hero = {
   h1: "Estrategia de prensa y narrativa para gobiernos, campañas y marcas del suroccidente colombiano.",
   lead: "Soy Andrea Belalcázar. He liderado la comunicación de una secretaría departamental, un concejo municipal, una campaña presidencial en el Valle y una campaña a la Alcaldía de Cali. Ayudo a instituciones y líderes a decir lo correcto, a tiempo y en el medio correcto.",
   ctaPrimary: "Hablemos por WhatsApp",
-  ctaSecondary: "Ver trayectoria",
+  ctaSecondary: "Ver casos",
   proof: [
     "Secretaría de Turismo del Valle del Cauca",
     "Concejo de Cali",

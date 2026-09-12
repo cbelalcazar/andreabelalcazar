@@ -1,0 +1,116 @@
+---
+title: "IA para jefes de prensa: usos reales, límites y riesgos"
+description: "Usos reales de la IA para jefes de prensa: borradores, resúmenes, monitoreo y análisis. Y sus límites: alucinaciones, sesgos, confidencialidad y revisión humana."
+date: "2026-09-12"
+tema: "ia"
+tags: ["inteligencia artificial", "jefe de prensa", "chatgpt", "productividad", "riesgos"]
+faq:
+  - q: "¿Puede la inteligencia artificial escribir un comunicado de prensa?"
+    a: "Puede escribir un borrador razonable si recibe los hechos, el tono y la estructura. No puede verificar datos ni conocer el contexto político de la entidad. El comunicado final siempre debe pasar por revisión humana y por la validación del área técnica y jurídica."
+  - q: "¿Qué información no se debe compartir con herramientas de IA?"
+    a: "Datos personales de ciudadanos o funcionarios, información reservada o clasificada, borradores de decisiones no publicadas y cualquier documento sujeto a la Ley 1581 de 2012. Si la herramienta no garantiza por contrato que no entrena con sus datos, asuma que puede hacerlo."
+  - q: "¿Cómo evitar que la IA invente datos en un texto de prensa?"
+    a: "Entregue los datos usted en el prompt y pídale que no agregue cifras, nombres ni citas que no estén en el insumo. Después contraste cada dato con la fuente original. La IA redacta bien, pero no distingue entre lo que sabe y lo que supone."
+draft: false
+---
+
+La inteligencia artificial sirve a un jefe de prensa para cuatro cosas concretas: acelerar borradores, resumir documentos largos, clasificar menciones y proponer variantes de mensajes. No sirve para verificar hechos, decidir qué se comunica ni asumir responsabilidad por lo publicado. La regla es simple: la IA redacta y ordena, la persona decide y firma.
+
+Este artículo separa lo que funciona hoy de lo que suena bien en una conferencia. Está escrito desde el trabajo cotidiano de prensa en el sector público y en campañas, donde un dato equivocado tiene consecuencias.
+
+## ¿Qué tareas de prensa mejoran con IA?
+
+Las que son repetitivas, tienen una estructura conocida y admiten revisión posterior. En esas tareas la IA ahorra tiempo sin poner en riesgo el criterio.
+
+### Borradores de comunicados y boletines
+
+Con un insumo bien armado, un modelo como ChatGPT produce un primer borrador en segundos. El insumo debe incluir los hechos verificados, las citas autorizadas, el público y el tono. Con eso, el trabajo humano pasa de redactar desde cero a corregir y afinar.
+
+El límite es claro: el borrador no conoce la coyuntura, las tensiones internas ni lo que el vocero dijo la semana pasada. Ese contexto lo aporta quien revisa.
+
+### Resúmenes de documentos técnicos
+
+Un informe de 80 páginas de una secretaría se puede convertir en una síntesis de una página con los puntos comunicables. Esto es útil para preparar al vocero o para decidir qué merece boletín. Siempre hay que contrastar el resumen con el documento original, porque la IA puede omitir el matiz que más importa.
+
+### Clasificación de menciones y comentarios
+
+La IA etiqueta cientos de comentarios en minutos según tema, tono o urgencia. Eso permite al equipo enfocarse en lo que requiere respuesta. Es el uso más maduro y el que menos riesgo tiene, siempre que alguien revise las muestras. Sobre este punto hay más detalle en [cómo monitorear medios y redes con inteligencia artificial](/blog/como-monitorear-medios-y-redes-con-inteligencia-artificial).
+
+### Variantes de mensajes para distintos canales
+
+Un mismo [mensaje clave](/glosario/mensaje-clave) necesita versiones para prensa, redes, radio y un discurso. La IA genera esas variantes con rapidez. El criterio de cuál usar sigue siendo humano.
+
+## ¿Dónde están los límites reales?
+
+Aquí es donde más cuidado hace falta. Los riesgos no son teóricos; ocurren en el uso diario.
+
+| Riesgo           | Cómo se manifiesta                                                     | Cómo se mitiga                                                                |
+| ---------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Alucinaciones    | Cifras, nombres, fechas o citas inventadas con tono seguro.            | Entregar todos los datos en el insumo y verificar cada uno contra la fuente.  |
+| Sesgos           | Estereotipos sobre regiones, géneros o grupos en el lenguaje generado. | Revisar con lectura crítica y ajustar el prompt con instrucciones explícitas. |
+| Confidencialidad | Datos personales o reservados que quedan en servidores de terceros.    | No cargar información sujeta a reserva; revisar términos de uso y contratos.  |
+| Homogeneización  | Todos los textos suenan igual, sin voz institucional.                  | Editar con la guía de estilo de la entidad y con criterio propio.             |
+| Dependencia      | El equipo deja de verificar porque «la IA ya lo revisó».               | Mantener la revisión humana como paso obligatorio y documentado.              |
+
+### Las alucinaciones no avisan
+
+El problema de las alucinaciones es que llegan con la misma seguridad que los datos correctos. Un modelo puede atribuir una cita a un funcionario que nunca la dijo o inventar un porcentaje plausible. En un texto de prensa eso es una rectificación asegurada.
+
+Por eso el flujo debe invertir la lógica habitual. No se le pide a la IA que investigue; se le entregan los hechos y se le pide que los ordene. Todo lo que no esté en el insumo se trata como sospechoso.
+
+### La confidencialidad no es opcional
+
+En Colombia, el tratamiento de datos personales está regulado por la Ley 1581 de 2012 y sus decretos reglamentarios. La [Superintendencia de Industria y Comercio](https://www.sic.gov.co/) es la autoridad en la materia. Cargar una base de datos de ciudadanos o un listado de funcionarios a una herramienta de IA sin las garantías adecuadas puede ser una infracción.
+
+Lo mismo aplica a la información reservada o clasificada. Un borrador de decreto, un informe de control interno o una estrategia de campaña no deberían pasar por herramientas desconocidas. Antes hay que leer sus condiciones de uso. La regla práctica es: si no lo publicaría hoy, no lo cargue.
+
+## ¿Cómo montar un flujo de trabajo con revisión humana?
+
+El valor de la IA en prensa depende de cómo se integra al proceso. Un flujo razonable tiene cinco pasos.
+
+1. **Preparar el insumo.** Reunir hechos verificados, citas autorizadas, público y tono. Este paso es humano y es el más importante.
+2. **Generar el borrador.** Usar un prompt claro que prohíba agregar datos no incluidos en el insumo.
+3. **Verificar dato por dato.** Contrastar cada cifra, nombre y fecha con la fuente original. Marcar lo que no coincide.
+4. **Editar con voz propia.** Ajustar tono, quitar frases genéricas y asegurar coherencia con mensajes anteriores.
+5. **Validar y aprobar.** Pasar por el área técnica y jurídica según el protocolo de la entidad. Registrar quién aprobó.
+
+### Un prompt que reduce errores
+
+Un prompt útil para un boletín incluye el rol: «eres redactor de prensa de una entidad pública colombiana». Después, los hechos en viñetas, las citas con el nombre autorizado, la extensión y una instrucción explícita. Esa instrucción puede ser: «No agregues datos, cifras, nombres ni citas que no aparezcan en este mensaje. Si falta información, indícalo con corchetes».
+
+Los corchetes hacen visibles los vacíos en lugar de rellenarlos con invenciones.
+
+## ¿Qué marcos de referencia existen para usar IA con criterio?
+
+No hace falta inventar la gobernanza desde cero. El [marco de gestión de riesgos de IA del NIST](https://www.nist.gov/itl/ai-risk-management-framework) ofrece una estructura para identificar, medir y mitigar riesgos en el uso de estas herramientas. Aunque está pensado para organizaciones que desarrollan sistemas, sus principios aplican a quien los usa.
+
+Para un equipo de prensa, adoptar ese marco puede traducirse en tres documentos cortos. Una lista de usos permitidos y prohibidos, una regla de revisión humana obligatoria y un registro de herramientas y datos usados. Nada más elaborado que eso hace falta al inicio.
+
+## Errores frecuentes en equipos de prensa que empiezan con IA
+
+- Publicar un borrador sin verificar porque «se leía bien».
+- Cargar documentos internos para «que los resuma» sin revisar las condiciones de la herramienta.
+- Usar la IA para responder comentarios de ciudadanos de forma automática y sin supervisión.
+- Dejar que todos los textos de la entidad adopten el mismo tono genérico.
+- Confiar en la IA para hacer [fact-checking](/glosario/fact-checking), cuando ese es justo el trabajo que no puede hacer con fiabilidad.
+
+## Checklist antes de publicar un texto asistido por IA
+
+- [ ] El insumo tenía todos los hechos verificados y las citas autorizadas.
+- [ ] El prompt prohibió agregar información no incluida.
+- [ ] Cada cifra, nombre y fecha se contrastó con la fuente.
+- [ ] No se cargó información personal, reservada ni clasificada.
+- [ ] El texto se editó con la voz y la guía de estilo de la entidad.
+- [ ] Se revisó el lenguaje en busca de sesgos o generalizaciones.
+- [ ] Pasó por validación técnica y jurídica según el protocolo.
+- [ ] Queda registro de quién aprobó la versión final.
+
+## Para llevar
+
+- La IA acelera borradores, resúmenes, clasificación y variantes. No verifica ni decide.
+- Las alucinaciones llegan con tono seguro; la única defensa es entregar los datos y verificarlos después.
+- La Ley 1581 de 2012 aplica a lo que se carga en una herramienta de IA. Si no lo publicaría, no lo suba.
+- La revisión humana es un paso obligatorio y documentado, no una cortesía.
+- Tres documentos cortos bastan para empezar con criterio: usos permitidos, regla de revisión y registro de herramientas.
+
+Si su equipo de prensa quiere incorporar IA con un proceso serio, conozca el servicio de [jefatura de prensa y relación con medios](/servicios/jefatura-de-prensa). También puede escribirme por WhatsApp desde la [página de contacto](/contacto).

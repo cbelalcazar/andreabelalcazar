@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 // Solo los previews de Vercel llevan noindex; en local (sin VERCEL_ENV) y en producción no.
 const isVercelPreview = Boolean(process.env.VERCEL_ENV) && process.env.VERCEL_ENV !== "production";
@@ -14,7 +15,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
   "font-src 'self'",
-  "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+  "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://*.googletagmanager.com https://*.analytics.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
   "media-src 'self'",
   "frame-ancestors 'none'",
   "base-uri 'self'",
@@ -41,8 +42,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  typedRoutes: true,
+  // typedRoutes desactivado: los breadcrumbs y tarjetas construyen href dinámicos desde el índice de contenido
+  typedRoutes: false,
   poweredByHeader: false,
+  pageExtensions: ["ts", "tsx", "md", "mdx"],
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [60, 70, 75],
@@ -68,4 +71,12 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Plugins como strings: requisito de Turbopack (guía MDX de Next 16)
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [["remark-frontmatter"], ["remark-gfm"]],
+    rehypePlugins: [["rehype-slug"], ["rehype-autolink-headings", { behavior: "wrap" }]],
+  },
+});
+
+export default withMDX(nextConfig);

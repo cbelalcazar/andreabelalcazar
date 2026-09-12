@@ -36,17 +36,24 @@ export default function Footer() {
         <nav aria-label="Pie de página" className="text-sm text-muted">
           <p className="eyebrow mb-3">Sitio</p>
           <ul className="space-y-2">
-            {site.nav.map((item) => (
-              <li key={item.href}>
-                <a href={`/${item.href}`} className="inline-flex min-h-11 items-center hover:text-gold">
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {[...site.nav, { href: "/prensa", label: "Prensa" }, { href: "/glosario", label: "Glosario" }].map(
+              (item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="inline-flex min-h-11 items-center hover:text-gold">
+                    {item.label}
+                  </Link>
+                </li>
+              ),
+            )}
             <li>
               <Link href="/privacidad" className="inline-flex min-h-11 items-center hover:text-gold">
                 Privacidad
               </Link>
+            </li>
+            <li>
+              <a href="/rss.xml" className="inline-flex min-h-11 items-center hover:text-gold">
+                RSS
+              </a>
             </li>
           </ul>
         </nav>
