@@ -45,7 +45,7 @@ describe("metadata routes", () => {
 
   it("manifest usa el color de marca", () => {
     const m = manifest();
-    expect(m.theme_color).toBe("#0A0A0B");
+    expect(m.theme_color).toBe("#f5f5f7");
     expect(m.icons?.length).toBeGreaterThan(0);
   });
 });

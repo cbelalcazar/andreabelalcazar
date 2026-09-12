@@ -3,16 +3,23 @@
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <html lang="es-CO">
-      <body style={{ margin: 0, background: "#0A0A0B", color: "#F4F1EA", fontFamily: "system-ui, sans-serif" }}>
+      <body style={{ margin: 0, background: "#f5f5f7", color: "#1d1d1f", fontFamily: "system-ui, sans-serif" }}>
         <title>Error · Andrea Belalcázar</title>
         <main
           style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "2rem", textAlign: "center" }}
         >
           <div>
-            <h1 style={{ fontFamily: "Georgia, serif", fontSize: "2rem", fontWeight: 400 }}>
+            <h1
+              style={{
+                fontFamily: "system-ui, sans-serif",
+                fontSize: "2rem",
+                fontWeight: 600,
+                letterSpacing: "-0.02em",
+              }}
+            >
               El sitio no pudo cargarse.
             </h1>
-            <p style={{ color: "#A9A9B3" }}>
+            <p style={{ color: "#5f5f64" }}>
               Intenta de nuevo en unos segundos.{error.digest ? ` Ref. ${error.digest}` : ""}
             </p>
             <button
@@ -24,8 +31,8 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
                 padding: "0 2rem",
                 borderRadius: 999,
                 border: 0,
-                background: "#F5A623",
-                color: "#0A0A0B",
+                background: "#1d1d1f",
+                color: "#ffffff",
                 fontWeight: 600,
                 cursor: "pointer",
               }}

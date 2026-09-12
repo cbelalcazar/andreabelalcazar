@@ -16,7 +16,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const p = getPost(slug);
   const title = p?.title ?? "Andrea Belalcázar";
   const tema = p ? TEMAS[p.tema] : "Blog";
-  const font = await readFile(join(process.cwd(), "src/assets/fonts/PlayfairDisplay-Bold.ttf"));
+  const font = await readFile(join(process.cwd(), "src/assets/fonts/InterTight-SemiBold.ttf"));
   const fontSize = title.length > 70 ? 52 : title.length > 50 ? 60 : 68;
 
   return new ImageResponse(
@@ -43,26 +43,37 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           textTransform: "uppercase",
         }}
       >
-        <div style={{ width: 12, height: 12, borderRadius: 999, backgroundColor: "#F5A623" }} />
+        <div style={{ width: 12, height: 12, borderRadius: 999, backgroundColor: "#9a5b00" }} />
         {tema}
       </div>
-      <div style={{ fontFamily: "Playfair", fontSize, lineHeight: 1.1, fontWeight: 700, maxWidth: 1000 }}>{title}</div>
+      <div
+        style={{
+          fontFamily: "InterTight",
+          fontSize,
+          lineHeight: 1.05,
+          fontWeight: 600,
+          letterSpacing: -2,
+          maxWidth: 1000,
+        }}
+      >
+        {title}
+      </div>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           fontSize: 26,
-          color: "#A9A9B3",
+          color: "#5f5f64",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={{ color: "#fff", fontFamily: "Playfair", fontSize: 30 }}>Andrea Belalcázar</span>
+          <span style={{ color: "#1d1d1f", fontFamily: "InterTight", fontSize: 30 }}>Andrea Belalcázar</span>
           <span>Estrategia de prensa y comunicación política · Cali</span>
         </div>
         <span>andreabelalcazar.com</span>
       </div>
     </div>,
-    { ...size, fonts: [{ name: "Playfair", data: font, weight: 700, style: "normal" }] },
+    { ...size, fonts: [{ name: "InterTight", data: font, weight: 600, style: "normal" }] },
   );
 }

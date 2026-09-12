@@ -68,11 +68,11 @@ export default function ConsentBanner({ gaId }: { gaId: string }) {
         <div
           role="region"
           aria-label="Aviso de cookies"
-          className="fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-xl rounded-2xl border border-line bg-ink-3 p-5 text-sm text-paper shadow-2xl md:right-6 md:left-auto"
+          className="fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-xl rounded-[20px] border border-line bg-surface p-5 text-sm text-ink shadow-[0_10px_40px_rgba(0,0,0,0.15)] md:right-6 md:left-auto"
         >
           <p>
             Uso Google Analytics para saber qué contenido resulta útil. Solo se activa si aceptas.{" "}
-            <Link href="/privacidad" className="underline underline-offset-4 hover:text-gold">
+            <Link href="/privacidad" className="underline underline-offset-4 hover:text-accent">
               Política de privacidad
             </Link>
             .
@@ -81,14 +81,14 @@ export default function ConsentBanner({ gaId }: { gaId: string }) {
             <button
               type="button"
               onClick={() => decide("granted")}
-              className="min-h-11 rounded-full bg-gold px-5 font-semibold text-ink hover:bg-gold-deep"
+              className="min-h-11 rounded-full bg-ink px-5 font-semibold text-white hover:bg-ground-2"
             >
               Aceptar
             </button>
             <button
               type="button"
               onClick={() => decide("denied")}
-              className="min-h-11 rounded-full border border-white/15 px-5 font-semibold text-paper hover:bg-white/5"
+              className="min-h-11 rounded-full border border-line px-5 font-semibold text-ink hover:bg-surface-2"
             >
               Rechazar
             </button>

@@ -52,10 +52,10 @@ export default async function CasoPage({ params }: PageProps<"/casos/[slug]">) {
         meta={
           <>
             <span>
-              <strong className="text-paper">Rol:</strong> {c.role}
+              <strong className="text-ink">Rol:</strong> {c.role}
             </span>
             <span>
-              <strong className="text-paper">Entidad:</strong> {c.entity}
+              <strong className="text-ink">Entidad:</strong> {c.entity}
             </span>
           </>
         }
@@ -80,7 +80,7 @@ export default async function CasoPage({ params }: PageProps<"/casos/[slug]">) {
       </div>
       {others.length > 0 && (
         <section className="mx-auto max-w-[1400px] px-4 pb-24 md:px-8" aria-labelledby="otros-casos">
-          <h2 id="otros-casos" className="mb-6 font-serif text-3xl text-white">
+          <h2 id="otros-casos" className="mb-6 font-display text-3xl text-ink">
             Otros casos
           </h2>
           <div className="grid gap-4 md:grid-cols-3">

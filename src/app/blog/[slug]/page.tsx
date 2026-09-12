@@ -67,7 +67,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           <>
             <span>
               Por{" "}
-              <Link href="/sobre-mi" className="text-paper underline underline-offset-4 hover:text-gold">
+              <Link href="/sobre-mi" className="text-ink underline underline-offset-4 hover:text-accent">
                 {site.name}
               </Link>
             </span>
@@ -95,12 +95,12 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
         </article>
         <aside className="min-w-0 space-y-6 lg:col-span-4">
           <ShareBar url={url} title={p.title} />
-          <div className="rounded-2xl border border-line bg-white/[0.02] p-6">
+          <div className="rounded-2xl border border-line bg-surface p-6">
             <p className="eyebrow mb-2">Sobre la autora</p>
             <p className="text-sm leading-relaxed text-muted">
               {site.name} es {site.jobTitle.toLowerCase()} de la {site.employer.name} y estratega de comunicación
               política e institucional en Cali.{" "}
-              <Link href="/sobre-mi" className="text-gold underline underline-offset-4 hover:text-paper">
+              <Link href="/sobre-mi" className="text-accent underline underline-offset-4 hover:text-ink">
                 Conoce su trayectoria
               </Link>
               .
@@ -116,7 +116,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
       </div>
       {related.length > 0 && (
         <section className="mx-auto max-w-[1400px] px-4 pb-24 md:px-8" aria-labelledby="rel-posts">
-          <h2 id="rel-posts" className="mb-6 font-serif text-3xl text-white">
+          <h2 id="rel-posts" className="mb-6 font-display text-3xl text-ink">
             Sigue leyendo
           </h2>
           <div className="grid gap-4 md:grid-cols-3">

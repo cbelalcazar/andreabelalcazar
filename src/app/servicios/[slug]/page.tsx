@@ -54,20 +54,20 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
         </article>
 
         <aside className="min-w-0 space-y-8 lg:col-span-5">
-          <div className="rounded-2xl border border-line bg-white/[0.02] p-7">
+          <div className="rounded-2xl border border-line bg-surface p-7">
             <p className="eyebrow mb-3">Para quién</p>
-            <ul className="space-y-2 text-paper/85">
+            <ul className="space-y-2 text-ink-2">
               {s.forWho.map((f) => (
                 <li key={f} className="flex gap-3">
-                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" aria-hidden="true" />
                   {f}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-line bg-white/[0.02] p-7">
+          <div className="rounded-2xl border border-line bg-surface p-7">
             <p className="eyebrow mb-3">Entregables</p>
-            <ol className="list-decimal space-y-2 pl-5 text-paper/85 marker:text-gold">
+            <ol className="list-decimal space-y-2 pl-5 text-ink-2 marker:text-accent">
               {s.deliverables.map((d) => (
                 <li key={d}>{d}</li>
               ))}
@@ -84,7 +84,7 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
 
       {cases.length > 0 && (
         <section className="mx-auto max-w-[1400px] px-4 pb-16 md:px-8" aria-labelledby="casos-rel">
-          <h2 id="casos-rel" className="mb-6 font-serif text-3xl text-white">
+          <h2 id="casos-rel" className="mb-6 font-display text-3xl text-ink">
             Casos relacionados
           </h2>
           <div className="grid gap-4 md:grid-cols-3">
@@ -97,7 +97,7 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
 
       {related.length > 0 && (
         <section className="mx-auto max-w-[1400px] px-4 pb-16 md:px-8" aria-labelledby="serv-rel">
-          <h2 id="serv-rel" className="mb-6 font-serif text-3xl text-white">
+          <h2 id="serv-rel" className="mb-6 font-display text-3xl text-ink">
             Servicios que se complementan
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
@@ -111,10 +111,10 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
       {posts.length > 0 && (
         <section className="mx-auto max-w-[1400px] px-4 pb-24 md:px-8" aria-labelledby="posts-rel">
           <div className="mb-6 flex items-end justify-between gap-4">
-            <h2 id="posts-rel" className="font-serif text-3xl text-white">
+            <h2 id="posts-rel" className="font-display text-3xl text-ink">
               Artículos recientes
             </h2>
-            <Link href="/blog" className="text-sm font-semibold text-gold hover:text-paper">
+            <Link href="/blog" className="text-sm font-semibold text-accent hover:text-ink">
               Ver el blog →
             </Link>
           </div>

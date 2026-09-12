@@ -36,12 +36,12 @@ export default function BlogPage() {
             <Link
               key={t}
               href={`/blog/tema/${t}`}
-              className="rounded-full border border-line px-4 py-2 text-sm text-paper hover:border-gold/50 hover:text-gold"
+              className="rounded-full border border-line px-4 py-2 text-sm text-ink hover:border-ink hover:text-accent"
             >
               {TEMAS[t]}
             </Link>
           ))}
-          <a href="/rss.xml" className="rounded-full border border-line px-4 py-2 text-sm text-muted hover:text-gold">
+          <a href="/rss.xml" className="rounded-full border border-line px-4 py-2 text-sm text-muted hover:text-accent">
             RSS
           </a>
         </nav>

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import { site } from "@/content/site";
 import { buildHomeGraph, absoluteUrl } from "@/lib/seo";
 import JsonLd from "@/components/seo/JsonLd";
@@ -19,17 +19,16 @@ const inter = Inter({
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const interTight = Inter_Tight({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-playfair",
+  weight: ["500", "600", "700"],
+  variable: "--font-inter-tight",
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0A0A0B",
-  colorScheme: "dark",
+  themeColor: "#f5f5f7",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -79,7 +78,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang={site.locale} className={`${inter.variable} ${playfair.variable}`} data-scroll-behavior="smooth">
+    <html lang={site.locale} className={`${inter.variable} ${interTight.variable}`} data-scroll-behavior="smooth">
       <body>
         {site.gaId ? (
           // Consent Mode v2: denegado por defecto antes de que cargue GA (solo permitido en el root layout)

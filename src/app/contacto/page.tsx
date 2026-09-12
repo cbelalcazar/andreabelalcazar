@@ -34,33 +34,33 @@ export default function ContactoPage() {
           <WhatsAppLink
             placement="footer-cta"
             topic="contacto"
-            className="flex items-center gap-4 rounded-2xl border border-gold/40 bg-gold/5 p-6 hover:bg-gold/10"
+            className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-6 hover:bg-surface-2"
           >
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-whatsapp text-ink">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-whatsapp text-white">
               <WhatsAppIcon className="h-6 w-6" />
             </span>
             <span>
-              <span className="block font-semibold text-white">WhatsApp</span>
+              <span className="block font-semibold text-ink">WhatsApp</span>
               <span className="text-sm text-muted">{site.whatsapp.display} · la vía más rápida</span>
             </span>
           </WhatsAppLink>
           <a
             href={`mailto:${site.email}`}
-            className="flex items-center gap-4 rounded-2xl border border-line bg-white/[0.02] p-6 hover:border-gold/40"
+            className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-6 hover:border-line"
           >
             <span
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/5 text-gold"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-surface-2 text-accent"
               aria-hidden="true"
             >
               @
             </span>
             <span className="min-w-0">
-              <span className="block font-semibold text-white">Correo</span>
+              <span className="block font-semibold text-ink">Correo</span>
               <span className="block truncate text-sm text-muted">{site.email}</span>
             </span>
           </a>
-          <div className="rounded-2xl border border-line bg-white/[0.02] p-6 text-sm text-muted">
-            <p className="font-semibold text-white">Ubicación</p>
+          <div className="rounded-2xl border border-line bg-surface p-6 text-sm text-muted">
+            <p className="font-semibold text-ink">Ubicación</p>
             <p>
               {site.city}, {site.region}, Colombia. Trabajo con entidades de todo el suroccidente y a distancia con el
               resto del país.
@@ -68,8 +68,8 @@ export default function ContactoPage() {
           </div>
         </div>
         <div className="lg:col-span-7">
-          <div className="relative rounded-2xl border border-line bg-white/[0.02] p-6 md:p-8">
-            <h2 className="font-serif text-2xl text-white">Formulario</h2>
+          <div className="relative rounded-2xl border border-line bg-surface p-6 md:p-8">
+            <h2 className="font-display text-2xl text-ink">Formulario</h2>
             {formEnabled ? (
               <div className="mt-6">
                 <ContactForm />

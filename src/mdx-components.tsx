@@ -25,7 +25,7 @@ const components: MDXComponents = {
     props.type === "checkbox" ? (
       <span
         aria-hidden="true"
-        className="mr-2 inline-block h-4 w-4 translate-y-0.5 rounded border border-gold/60 align-middle"
+        className="mr-2 inline-block h-4 w-4 translate-y-0.5 rounded border border-ink align-middle"
       />
     ) : (
       <input {...props} />
@@ -36,9 +36,9 @@ const components: MDXComponents = {
     </div>
   ),
   th: (props) => (
-    <th className="border-b border-line bg-white/[0.03] px-3 py-2 text-left font-semibold text-paper" {...props} />
+    <th className="border-b border-line bg-surface px-3 py-2 text-left font-semibold text-ink" {...props} />
   ),
-  td: (props) => <td className="border-b border-line/60 px-3 py-2 align-top text-paper/85" {...props} />,
+  td: (props) => <td className="border-b border-line/60 px-3 py-2 align-top text-ink-2" {...props} />,
 };
 
 export function useMDXComponents(): MDXComponents {

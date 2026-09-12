@@ -10,65 +10,62 @@ export function formatDate(iso: string): string {
   return new Date(`${iso}T12:00:00Z`).toLocaleDateString("es-CO", { day: "numeric", month: "long", year: "numeric" });
 }
 
+const tile =
+  "group flex flex-col rounded-[28px] bg-surface p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-transform duration-300 hover:-translate-y-0.5 motion-reduce:transition-none md:p-8";
+
 export function ServiceCard({ s }: { s: ServiceMeta }) {
   const Icon = icons[s.icon];
   return (
-    <Link
-      href={`/servicios/${s.slug}`}
-      className="group flex flex-col rounded-2xl border border-line bg-white/[0.02] p-7 transition-colors hover:border-gold/40 hover:bg-white/[0.04]"
-    >
+    <Link href={`/servicios/${s.slug}`} className={tile}>
       <span
-        className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 text-gold"
+        className="mb-6 flex h-11 w-11 items-center justify-center rounded-2xl bg-ground text-ink"
         aria-hidden="true"
       >
-        <Icon className="h-6 w-6" />
+        <Icon className="h-5 w-5" strokeWidth={1.75} />
       </span>
-      <p className="eyebrow mb-2">{s.eyebrow}</p>
-      <h3 className="font-serif text-xl leading-snug text-white">{s.title}</h3>
-      <p className="mt-3 text-base leading-relaxed text-muted">{s.description}</p>
-      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold group-hover:text-paper">
-        Ver servicio <span aria-hidden="true">→</span>
-      </span>
+      <p className="eyebrow">{s.eyebrow}</p>
+      <h3 className="mt-1 font-display text-[22px] leading-tight font-semibold tracking-[-0.02em] text-balance text-ink">
+        {s.title}
+      </h3>
+      <p className="mt-3 text-[15px] leading-[1.55] text-muted">{s.description}</p>
+      <span className="link-chevron mt-5 text-[15px]">Ver servicio</span>
     </Link>
   );
 }
 
 export function CaseCard({ c }: { c: CaseMeta }) {
   return (
-    <Link
-      href={`/casos/${c.slug}`}
-      className="group flex flex-col rounded-2xl border border-line bg-white/[0.02] p-7 transition-colors hover:border-gold/40 hover:bg-white/[0.04]"
-    >
-      <p className="eyebrow mb-2">
+    <Link href={`/casos/${c.slug}`} className={tile}>
+      <p className="eyebrow">
         {typeLabel[c.entityType]}
-        {c.period !== "TODO" ? <span className="text-muted"> · {c.period}</span> : null}
+        {c.period !== "TODO" ? <> · {c.period}</> : null}
       </p>
-      <h3 className="font-serif text-xl leading-snug text-white">{c.entity}</h3>
-      <p className="mt-1 text-sm text-paper/80">{c.role}</p>
-      <p className="mt-3 text-base leading-relaxed text-muted">{c.description}</p>
-      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold group-hover:text-paper">
-        Leer el caso <span aria-hidden="true">→</span>
-      </span>
+      <h3 className="mt-1 font-display text-[22px] leading-tight font-semibold tracking-[-0.02em] text-balance text-ink">
+        {c.entity}
+      </h3>
+      <p className="mt-1 text-[14px] text-ink-2">{c.role}</p>
+      <p className="mt-3 text-[15px] leading-[1.55] text-muted">{c.description}</p>
+      <span className="link-chevron mt-5 text-[15px]">Leer el caso</span>
     </Link>
   );
 }
 
 export function PostCard({ p }: { p: PostMeta }) {
   return (
-    <article className="flex flex-col rounded-2xl border border-line bg-white/[0.02] p-7 transition-colors hover:border-gold/40">
-      <p className="eyebrow mb-3">
-        <Link href={`/blog/tema/${p.tema}`} className="hover:text-paper">
+    <article className={tile}>
+      <p className="eyebrow">
+        <Link href={`/blog/tema/${p.tema}`} className="hover:text-ink">
           {TEMAS[p.tema]}
         </Link>
       </p>
-      <h3 className="font-serif text-xl leading-snug text-white">
-        <Link href={`/blog/${p.slug}`} className="hover:text-gold">
+      <h3 className="mt-1 font-display text-[22px] leading-tight font-semibold tracking-[-0.02em] text-balance text-ink">
+        <Link href={`/blog/${p.slug}`} className="hover:underline">
           {p.title}
         </Link>
       </h3>
-      <p className="mt-3 text-base leading-relaxed text-muted">{p.description}</p>
-      <p className="mt-5 text-sm text-muted">
-        <time dateTime={p.date}>{formatDate(p.date)}</time> · {p.readingMinutes} min de lectura
+      <p className="mt-3 text-[15px] leading-[1.55] text-muted">{p.description}</p>
+      <p className="mt-5 text-[13px] text-muted">
+        <time dateTime={p.date}>{formatDate(p.date)}</time> · {p.readingMinutes} min
       </p>
     </article>
   );
@@ -78,10 +75,10 @@ export function TermCard({ t }: { t: TermMeta }) {
   return (
     <Link
       href={`/glosario/${t.slug}`}
-      className="flex flex-col rounded-xl border border-line bg-white/[0.02] p-5 transition-colors hover:border-gold/40"
+      className="flex flex-col rounded-[20px] bg-surface p-5 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-transform hover:-translate-y-0.5 motion-reduce:transition-none"
     >
-      <h3 className="font-serif text-lg text-white">{t.term}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted">{t.short}</p>
+      <h3 className="font-display text-[18px] font-semibold tracking-[-0.01em] text-ink">{t.term}</h3>
+      <p className="mt-2 text-[14px] leading-[1.5] text-muted">{t.short}</p>
     </Link>
   );
 }

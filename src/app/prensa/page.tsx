@@ -45,57 +45,53 @@ export default function PrensaPage() {
       <div className="mx-auto grid max-w-[1400px] gap-12 px-4 pb-24 md:px-8 lg:grid-cols-12">
         <div className="space-y-10 lg:col-span-7">
           <section aria-labelledby="bio-corta">
-            <h2 id="bio-corta" className="font-serif text-2xl text-white">
+            <h2 id="bio-corta" className="font-display text-2xl text-ink">
               Biografía corta (50 palabras)
             </h2>
-            <p className="mt-3 rounded-xl border border-line bg-white/[0.02] p-5 leading-relaxed text-paper/85">
-              {bio50}
-            </p>
+            <p className="mt-3 rounded-xl border border-line bg-surface p-5 leading-relaxed text-ink-2">{bio50}</p>
           </section>
           <section aria-labelledby="bio-larga">
-            <h2 id="bio-larga" className="font-serif text-2xl text-white">
+            <h2 id="bio-larga" className="font-display text-2xl text-ink">
               Biografía larga (150 palabras)
             </h2>
-            <p className="mt-3 rounded-xl border border-line bg-white/[0.02] p-5 leading-relaxed text-paper/85">
-              {bio150}
-            </p>
+            <p className="mt-3 rounded-xl border border-line bg-surface p-5 leading-relaxed text-ink-2">{bio150}</p>
           </section>
           <section aria-labelledby="temas">
-            <h2 id="temas" className="font-serif text-2xl text-white">
+            <h2 id="temas" className="font-display text-2xl text-ink">
               Temas sobre los que puede opinar
             </h2>
             <ul className="mt-3 grid gap-2 sm:grid-cols-2">
               {temas.map((t) => (
-                <li key={t} className="rounded-xl border border-line bg-white/[0.02] px-4 py-3 text-sm text-paper/85">
+                <li key={t} className="rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink-2">
                   {t}
                 </li>
               ))}
             </ul>
           </section>
           <section aria-labelledby="datos">
-            <h2 id="datos" className="font-serif text-2xl text-white">
+            <h2 id="datos" className="font-display text-2xl text-ink">
               Datos para créditos
             </h2>
             <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
               <div className="rounded-xl border border-line p-4">
                 <dt className="text-muted">Nombre</dt>
-                <dd className="text-paper">{site.name}</dd>
+                <dd className="text-ink">{site.name}</dd>
               </div>
               <div className="rounded-xl border border-line p-4">
                 <dt className="text-muted">Cargo</dt>
-                <dd className="text-paper">
+                <dd className="text-ink">
                   {site.jobTitle}, {site.employer.name}
                 </dd>
               </div>
               <div className="rounded-xl border border-line p-4">
                 <dt className="text-muted">Ciudad</dt>
-                <dd className="text-paper">
+                <dd className="text-ink">
                   {site.city}, {site.region}, Colombia
                 </dd>
               </div>
               <div className="rounded-xl border border-line p-4">
                 <dt className="text-muted">Sitio web</dt>
-                <dd className="text-paper">andreabelalcazar.com</dd>
+                <dd className="text-ink">andreabelalcazar.com</dd>
               </div>
             </dl>
           </section>
@@ -103,7 +99,7 @@ export default function PrensaPage() {
 
         <aside className="space-y-8 lg:col-span-5">
           <section aria-labelledby="fotos">
-            <h2 id="fotos" className="font-serif text-2xl text-white">
+            <h2 id="fotos" className="font-display text-2xl text-ink">
               Fotografías
             </h2>
             <p className="mt-2 text-sm text-muted">
@@ -142,8 +138,8 @@ export default function PrensaPage() {
               </a>
             </div>
           </section>
-          <section aria-labelledby="contacto-prensa" className="rounded-2xl border border-gold/30 bg-gold/5 p-7">
-            <h2 id="contacto-prensa" className="font-serif text-2xl text-white">
+          <section aria-labelledby="contacto-prensa" className="rounded-2xl border border-line bg-surface p-7">
+            <h2 id="contacto-prensa" className="font-display text-2xl text-ink">
               Contacto para entrevistas
             </h2>
             <p className="mt-2 text-sm text-muted">Respuesta el mismo día para solicitudes de prensa.</p>
@@ -152,7 +148,7 @@ export default function PrensaPage() {
                 <WhatsAppLink
                   placement="footer"
                   topic="prensa"
-                  className="text-gold underline underline-offset-4 hover:text-paper"
+                  className="text-accent underline underline-offset-4 hover:text-ink"
                 >
                   WhatsApp {site.whatsapp.display}
                 </WhatsAppLink>
@@ -160,7 +156,7 @@ export default function PrensaPage() {
               <li>
                 <a
                   href={`mailto:${site.email}?subject=Solicitud%20de%20prensa`}
-                  className="break-all text-gold underline underline-offset-4 hover:text-paper"
+                  className="break-all text-accent underline underline-offset-4 hover:text-ink"
                 >
                   {site.email}
                 </a>

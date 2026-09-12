@@ -15,21 +15,14 @@ export default function ContactBlock({
   topic?: string;
 }) {
   return (
-    <aside className="mt-16 rounded-2xl border border-gold/30 bg-gold/5 p-8 md:p-10">
-      <h2 className="font-serif text-2xl text-white md:text-3xl">{title}</h2>
-      <p className="mt-3 max-w-xl text-muted">{text}</p>
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <WhatsAppLink
-          placement={placement}
-          topic={topic}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gold px-7 text-sm font-semibold text-ink hover:bg-gold-deep"
-        >
+    <aside className="theme-dark mt-16 rounded-[28px] bg-ground p-8 md:p-10">
+      <h2 className="display-md text-balance">{title}</h2>
+      <p className="mt-3 max-w-[48ch] text-[17px] leading-[1.55] text-muted">{text}</p>
+      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+        <WhatsAppLink placement={placement} topic={topic} className="btn-pill">
           <WhatsAppIcon className="h-5 w-5" /> Hablemos por WhatsApp
         </WhatsAppLink>
-        <Link
-          href="/contacto"
-          className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/15 px-7 text-sm font-semibold text-white hover:bg-white/5"
-        >
+        <Link href="/contacto" className="btn-pill-ghost">
           Otras formas de contacto
         </Link>
       </div>

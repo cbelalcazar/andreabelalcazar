@@ -3,8 +3,15 @@
 import { useReportWebVitals } from "next/web-vitals";
 import { sendGAEvent } from "@next/third-parties/google";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 export default function WebVitals() {
   useReportWebVitals((metric) => {
+    if (typeof window.gtag !== "function") return; // GA aún no cargado (sin consentimiento)
     try {
       sendGAEvent("event", "web_vitals", {
         metric: metric.name,

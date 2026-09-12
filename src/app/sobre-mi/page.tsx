@@ -75,22 +75,22 @@ export default function SobreMiPage() {
           </section>
 
           <section aria-labelledby="trayectoria">
-            <h2 id="trayectoria" className="font-serif text-3xl text-white">
+            <h2 id="trayectoria" className="font-display text-3xl text-ink">
               Trayectoria
             </h2>
-            <ol className="mt-6 border-l border-gold/30">
+            <ol className="mt-6 border-l border-line">
               {roles.map((r) => (
                 <li key={`${r.org}-${r.title}`} className="relative pb-8 pl-8 last:pb-0">
                   <span
-                    className={`absolute top-2 -left-[5px] h-[9px] w-[9px] rounded-full ${r.current ? "bg-gold" : "bg-muted/60"}`}
+                    className={`absolute top-2 -left-[5px] h-[9px] w-[9px] rounded-full ${r.current ? "bg-ink" : "bg-muted/60"}`}
                     aria-hidden="true"
                   />
                   <p className="text-xs font-semibold tracking-[0.12em] text-muted uppercase">
-                    <span className={r.current ? "text-gold" : ""}>{typeLabel[r.type]}</span>
+                    <span className={r.current ? "text-accent" : ""}>{typeLabel[r.type]}</span>
                     {showPeriod(r.period) ? <> · {r.period}</> : null}
                   </p>
-                  <h3 className="mt-1 font-serif text-2xl text-white">{r.title}</h3>
-                  <p className="text-paper/85">{r.org}</p>
+                  <h3 className="mt-1 font-display text-2xl text-ink">{r.title}</h3>
+                  <p className="text-ink-2">{r.org}</p>
                   <ul className="mt-2 space-y-1 text-sm leading-relaxed text-muted">
                     {r.bullets.map((b) => (
                       <li key={b}>{b}</li>
@@ -101,7 +101,7 @@ export default function SobreMiPage() {
             </ol>
             <p className="mt-6 text-sm text-muted">
               Ver los{" "}
-              <Link href="/casos" className="text-gold underline underline-offset-4 hover:text-paper">
+              <Link href="/casos" className="text-accent underline underline-offset-4 hover:text-ink">
                 casos en detalle
               </Link>
               .
@@ -109,20 +109,20 @@ export default function SobreMiPage() {
           </section>
 
           <section aria-labelledby="formacion">
-            <h2 id="formacion" className="font-serif text-3xl text-white">
+            <h2 id="formacion" className="font-display text-3xl text-ink">
               Formación
             </h2>
             <dl className="mt-6 divide-y divide-line rounded-2xl border border-line">
               {education.map((e) => (
                 <div key={e.degree} className="px-6 py-5">
-                  <dt className="font-serif text-xl text-white">{e.degree}</dt>
+                  <dt className="font-display text-xl text-ink">{e.degree}</dt>
                   <dd className="text-sm text-muted">
                     {e.level} ·{" "}
                     <a
                       href={e.schoolUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-gold hover:underline"
+                      className="hover:text-accent hover:underline"
                     >
                       {e.school}
                     </a>
@@ -133,12 +133,12 @@ export default function SobreMiPage() {
           </section>
 
           <section aria-labelledby="herramientas">
-            <h2 id="herramientas" className="font-serif text-3xl text-white">
+            <h2 id="herramientas" className="font-display text-3xl text-ink">
               Herramientas
             </h2>
             <ul className="mt-4 flex flex-wrap gap-2">
               {tools.map((t) => (
-                <li key={t} className="rounded-full border border-line bg-white/5 px-3 py-1.5 text-sm text-paper">
+                <li key={t} className="rounded-full border border-line bg-surface-2 px-3 py-1.5 text-sm text-ink">
                   {t}
                 </li>
               ))}

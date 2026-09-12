@@ -2,30 +2,65 @@
 @plugin "@tailwindcss/typography";
 
 /*
- * `@theme inline` es obligatorio aquí: las variables --font-inter/--font-playfair
- * las define next/font en <html>, y con `@theme` normal la utilidad font-serif
- * referenciaría una variable no resuelta en :root (bug X-01 de la auditoría).
+ * Sistema visual: claro por defecto, secciones oscuras a todo el ancho con `.theme-dark`.
+ * Los colores de Tailwind apuntan a variables CSS (`@theme inline`) para que una sección
+ * oscura redefina los tokens y todos los componentes dentro se adapten sin clases extra.
+ * `@theme inline` también es obligatorio para que las variables de next/font (definidas
+ * en <html>) se resuelvan (bug X-01 de la auditoría).
  */
-@theme inline {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+:root {
+  --ground: #f5f5f7;
+  --ground-2: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #e8e8ed;
+  --ink: #1d1d1f;
+  --ink-2: #424245;
+  --muted: #5f5f64; /* 5.4:1 sobre #f5f5f7 */
+  --line: #d2d2d7;
+  --accent: #9a5b00; /* bronce, 5.9:1 sobre blanco */
+  --accent-deep: #7a4700;
+  --on-accent: #ffffff;
+  color-scheme: light;
+}
 
-  --color-ink: #0a0a0b;
-  --color-ink-2: #121214;
-  --color-ink-3: #1a1a1e;
-  --color-paper: #f4f1ea;
-  --color-muted: #a9a9b3; /* 7.3:1 sobre ink */
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-gold: oklch(76.9% 0.188 70.08);
-  --color-gold-deep: oklch(66.6% 0.179 58.318);
+.theme-dark {
+  --ground: #000000;
+  --ground-2: #0b0b0d;
+  --surface: #1d1d1f;
+  --surface-2: #2c2c2e;
+  --ink: #f5f5f7;
+  --ink-2: #d2d2d7;
+  --muted: #a1a1a6; /* 8.6:1 sobre negro */
+  --line: #3a3a3c;
+  --accent: #e8a33a; /* oro, 9:1 sobre negro */
+  --accent-deep: #f2b95c;
+  --on-accent: #1d1d1f;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-inter-tight), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-ground: var(--ground);
+  --color-ground-2: var(--ground-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-on-accent: var(--on-accent);
   --color-whatsapp: #25d366;
 }
 
 @layer base {
   html {
-    scroll-padding-top: 6rem;
-    color-scheme: dark;
-    background-color: var(--color-ink);
+    scroll-padding-top: 5rem;
+    background-color: var(--ground);
+    -webkit-text-size-adjust: 100%;
   }
   @media (prefers-reduced-motion: no-preference) {
     html {
@@ -33,14 +68,13 @@
     }
   }
   body {
-    @apply bg-ink font-sans text-paper antialiased;
+    @apply bg-ground font-sans text-ink antialiased;
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-gold;
+    @apply outline-2 outline-offset-3 outline-accent;
   }
   ::selection {
-    background: color-mix(in oklab, var(--color-gold) 35%, transparent);
-    color: #fff;
+    background: color-mix(in oklab, var(--color-accent) 25%, transparent);
   }
 }
 
@@ -49,14 +83,43 @@
     text-wrap: balance;
   }
   .eyebrow {
-    @apply text-xs font-semibold tracking-[0.14em] text-gold uppercase;
+    @apply text-[13px] font-semibold tracking-[0.02em] text-muted;
+  }
+  .display-xl {
+    @apply font-display text-[clamp(2.5rem,6.2vw,5.25rem)] leading-[1.0] font-semibold tracking-[-0.035em] text-ink;
+  }
+  .display-lg {
+    @apply font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1.02] font-semibold tracking-[-0.03em] text-ink;
+  }
+  .display-md {
+    @apply font-display text-[clamp(1.75rem,3.2vw,2.75rem)] leading-[1.08] font-semibold tracking-[-0.02em] text-ink;
+  }
+  .lead-xl {
+    @apply text-[clamp(1.125rem,1.6vw,1.5rem)] leading-[1.4] font-normal text-ink-2;
+  }
+  .link-chevron {
+    @apply inline-flex min-h-11 items-center gap-1 text-[17px] font-medium text-accent hover:underline;
+  }
+  .link-chevron::after {
+    content: "›";
+    font-size: 1.15em;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+  .btn-pill {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[15px] font-medium text-ground transition-colors hover:bg-ink-2;
+  }
+  .btn-pill-ghost {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line bg-transparent px-6 text-[15px] font-medium text-ink transition-colors hover:bg-surface-2;
+  }
+  .tile {
+    @apply rounded-[28px] bg-surface p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] md:p-10;
   }
 }
 
-/* Prosa de artículos y páginas de contenido (tema oscuro) */
 @layer components {
   .prose-site {
-    @apply prose max-w-none prose-invert prose-headings:font-serif prose-headings:font-normal prose-headings:text-balance prose-headings:text-white prose-h2:mt-12 prose-h2:text-3xl prose-h3:text-xl prose-p:leading-relaxed prose-p:text-paper/85 prose-a:text-gold prose-a:underline-offset-4 prose-blockquote:border-gold/60 prose-blockquote:font-serif prose-blockquote:text-xl prose-blockquote:text-paper prose-blockquote:not-italic prose-strong:text-white prose-code:text-gold prose-li:text-paper/85 prose-img:rounded-xl prose-hr:border-line;
+    @apply prose prose-lg max-w-none prose-headings:font-display prose-headings:font-semibold prose-headings:tracking-[-0.02em] prose-headings:text-balance prose-headings:text-ink prose-h2:mt-14 prose-h2:text-[2rem] prose-h2:leading-tight prose-h3:text-[1.375rem] prose-p:leading-[1.65] prose-p:text-ink-2 prose-a:text-accent prose-a:underline-offset-4 prose-blockquote:border-ink prose-blockquote:font-display prose-blockquote:text-2xl prose-blockquote:font-medium prose-blockquote:tracking-[-0.01em] prose-blockquote:text-ink prose-blockquote:not-italic prose-strong:text-ink prose-code:text-accent prose-li:text-ink-2 prose-img:rounded-[20px] prose-hr:border-line;
   }
   .prose-site h2 a,
   .prose-site h3 a {
@@ -66,6 +129,6 @@
   .prose-site h2 a:hover::after,
   .prose-site h3 a:hover::after {
     content: " #";
-    color: var(--color-gold);
+    color: var(--color-accent);
   }
 }

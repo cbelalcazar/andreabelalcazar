@@ -14,7 +14,7 @@ test.describe("home", () => {
     await expect(h1).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
     const family = await h1.evaluate((el) => getComputedStyle(el).fontFamily);
-    expect(family).toContain("Playfair Display");
+    expect(family).toContain("Inter Tight");
     const bodyFamily = await page.evaluate(() => getComputedStyle(document.body).fontFamily);
     expect(bodyFamily).toContain("Inter");
   });

@@ -2,41 +2,27 @@ import { philosophy, tools } from "@/content/site";
 
 export default function Philosophy() {
   return (
-    <section
-      id="perfil"
-      className="border-y border-line bg-ink-2 px-4 py-16 md:px-8 md:py-28"
-      aria-labelledby="perfil-title"
-    >
-      <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-12 lg:gap-20">
-        <div className="lg:sticky lg:top-32 lg:col-span-4 lg:self-start">
-          <p className="eyebrow mb-4 flex items-center gap-3">
-            <span className="h-px w-8 bg-gold" aria-hidden="true" />
-            {philosophy.eyebrow}
-          </p>
-          <h2 id="perfil-title" className="font-serif text-3xl leading-tight text-balance text-white md:text-4xl">
-            {philosophy.title}
-          </h2>
+    <section id="perfil" className="theme-dark bg-ground px-4 py-24 md:px-6 md:py-36" aria-labelledby="perfil-title">
+      <div className="reveal mx-auto max-w-[1024px]">
+        <p className="eyebrow text-center">{philosophy.eyebrow}</p>
+        <h2 id="perfil-title" className="display-lg mx-auto mt-4 max-w-[20ch] text-center text-balance">
+          {philosophy.title}
+        </h2>
+        <blockquote className="mx-auto mt-12 max-w-[34ch] text-center font-display text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.15] font-medium tracking-[-0.02em] text-balance text-ink">
+          «{philosophy.quote}»
+        </blockquote>
+        <div className="mx-auto mt-16 grid max-w-[900px] gap-10 text-[17px] leading-[1.6] text-muted md:grid-cols-2 md:gap-14">
+          {philosophy.paragraphs.map((p) => (
+            <p key={p.slice(0, 24)}>{p}</p>
+          ))}
         </div>
-        <div className="space-y-10 lg:col-span-8">
-          <blockquote className="border-l-2 border-gold/60 pl-6 font-serif text-2xl leading-snug text-paper md:text-4xl">
-            <p>«{philosophy.quote}»</p>
-          </blockquote>
-          <div className="grid gap-8 text-lg leading-relaxed text-muted md:grid-cols-2">
-            {philosophy.paragraphs.map((p) => (
-              <p key={p.slice(0, 24)}>{p}</p>
-            ))}
-          </div>
-          <div>
-            <p className="eyebrow mb-3">Herramientas</p>
-            <ul className="flex flex-wrap gap-2">
-              {tools.map((t) => (
-                <li key={t} className="rounded-full border border-line bg-white/5 px-3 py-1.5 text-sm text-paper">
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <ul className="mx-auto mt-14 flex max-w-[900px] flex-wrap justify-center gap-2" aria-label="Herramientas">
+          {tools.map((t) => (
+            <li key={t} className="rounded-full border border-line px-4 py-2 text-[13px] font-medium text-ink-2">
+              {t}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

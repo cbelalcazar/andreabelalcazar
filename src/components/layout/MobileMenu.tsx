@@ -38,15 +38,15 @@ export default function MobileMenu() {
         aria-controls={panelId}
         aria-label={open ? "Cerrar menú" : "Abrir menú"}
         onClick={() => setOpen((v) => !v)}
-        className="flex h-11 w-11 items-center justify-center rounded-full text-paper hover:bg-white/10"
+        className="flex h-11 w-11 items-center justify-center rounded-full text-[#1d1d1f] hover:bg-black/5"
       >
         <svg
-          width="22"
-          height="22"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.8"
           strokeLinecap="round"
           aria-hidden="true"
         >
@@ -57,9 +57,8 @@ export default function MobileMenu() {
             </>
           ) : (
             <>
-              <path d="M4 7h16" />
-              <path d="M4 12h16" />
-              <path d="M4 17h16" />
+              <path d="M4 8h16" />
+              <path d="M4 16h16" />
             </>
           )}
         </svg>
@@ -71,19 +70,22 @@ export default function MobileMenu() {
           role="dialog"
           aria-modal="true"
           aria-label="Menú principal"
-          className="fixed inset-0 z-[90] flex flex-col bg-ink/98 px-6 pt-24 pb-10"
+          className="fixed inset-0 z-[90] flex flex-col bg-[#f5f5f7] px-6 pt-20 pb-8 text-[#1d1d1f]"
         >
           <nav aria-label="Principal (móvil)">
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col divide-y divide-black/10">
               {site.nav.map((item, i) => (
                 <li key={item.href}>
                   <Link
                     ref={i === 0 ? firstLinkRef : undefined}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-4 font-serif text-3xl text-paper hover:bg-white/5 hover:text-gold"
+                    className="flex min-h-14 items-center justify-between font-display text-[28px] font-semibold tracking-[-0.02em]"
                   >
                     {item.label}
+                    <span aria-hidden="true" className="text-black/30">
+                      ›
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -93,7 +95,7 @@ export default function MobileMenu() {
             <WhatsAppLink
               placement="mobile-menu"
               onClick={() => setOpen(false)}
-              className="flex h-14 w-full items-center justify-center gap-3 rounded-full bg-gold text-base font-semibold text-ink hover:bg-gold-deep"
+              className="flex h-13 w-full items-center justify-center gap-2 rounded-full bg-[#1d1d1f] text-[16px] font-medium text-white"
             >
               <WhatsAppIcon className="h-5 w-5" />
               Hablemos por WhatsApp

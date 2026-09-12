@@ -6,7 +6,7 @@ export default function Loading() {
       aria-busy="true"
       aria-live="polite"
     >
-      <p className="font-serif text-xl text-muted">Cargando…</p>
+      <p className="font-display text-xl text-muted">Cargando…</p>
     </main>
   );
 }

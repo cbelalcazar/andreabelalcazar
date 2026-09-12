@@ -7,7 +7,7 @@ export default function ShareBar({ url, title }: { url: string; title: string })
     { name: "X", href: `https://x.com/intent/post?text=${t}&url=${u}` },
   ];
   return (
-    <div className="rounded-2xl border border-line bg-white/[0.02] p-6">
+    <div className="rounded-[20px] bg-surface p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
       <p className="eyebrow mb-3">Compartir</p>
       <ul className="flex flex-wrap gap-2">
         {links.map((l) => (
@@ -18,7 +18,7 @@ export default function ShareBar({ url, title }: { url: string; title: string })
               rel="noopener noreferrer"
               data-track="share_click"
               data-topic={l.name.toLowerCase()}
-              className="inline-flex min-h-10 items-center rounded-full border border-line px-4 text-sm text-paper hover:border-gold/50 hover:text-gold"
+              className="inline-flex min-h-10 items-center rounded-full bg-ground px-4 text-[14px] font-medium text-ink hover:bg-surface-2"
             >
               {l.name}
             </a>

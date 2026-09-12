@@ -8,7 +8,7 @@ export const contentType = "image/png";
 
 export default async function Image() {
   const [fontData, imageData] = await Promise.all([
-    readFile(join(process.cwd(), "src/assets/fonts/PlayfairDisplay-Bold.ttf")),
+    readFile(join(process.cwd(), "src/assets/fonts/InterTight-SemiBold.ttf")),
     readFile(join(process.cwd(), "src/assets/img/andrea-belalcazar-retrato-og.jpg")),
   ]);
 
@@ -31,7 +31,7 @@ export default async function Image() {
       <div style={{ display: "flex", flexDirection: "column", maxWidth: "600px" }}>
         <div
           style={{
-            fontFamily: "Playfair",
+            fontFamily: "InterTight",
             fontSize: "72px",
             fontWeight: 700,
             lineHeight: 1.1,
@@ -43,13 +43,13 @@ export default async function Image() {
         <div
           style={{
             fontSize: "28px",
-            color: "#d4af37",
+            color: "#5f5f64",
           }}
         >
           Estrategia de prensa y comunicación política · Cali
         </div>
       </div>
-      <div style={{ display: "flex", borderRadius: "10px", overflow: "hidden", border: "2px solid #333" }}>
+      <div style={{ display: "flex", borderRadius: "10px", overflow: "hidden", border: "1px solid #d2d2d7" }}>
         <img src={imageSrc} alt="" width={350} height={466} style={{ objectFit: "cover" }} />
       </div>
     </div>,
@@ -57,9 +57,9 @@ export default async function Image() {
       ...size,
       fonts: [
         {
-          name: "Playfair",
+          name: "InterTight",
           data: fontData,
-          weight: 700,
+          weight: 600,
           style: "normal",
         },
       ],

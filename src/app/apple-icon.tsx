@@ -6,7 +6,7 @@ export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
 export default async function Icon() {
-  const font = await readFile(join(process.cwd(), "src/assets/fonts/PlayfairDisplay-Bold.ttf"));
+  const font = await readFile(join(process.cwd(), "src/assets/fonts/InterTight-SemiBold.ttf"));
   return new ImageResponse(
     <div
       style={{
@@ -15,16 +15,16 @@ export default async function Icon() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#0A0A0B",
-        color: "#F5A623",
-        fontFamily: "Playfair",
+        background: "#1d1d1f",
+        color: "#ffffff",
+        fontFamily: "InterTight",
         fontSize: 92,
-        fontWeight: 700,
-        letterSpacing: -4,
+        fontWeight: 600,
+        letterSpacing: -6,
       }}
     >
       AB
     </div>,
-    { ...size, fonts: [{ name: "Playfair", data: font, weight: 700, style: "normal" }] },
+    { ...size, fonts: [{ name: "InterTight", data: font, weight: 600, style: "normal" }] },
   );
 }

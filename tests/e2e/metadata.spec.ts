@@ -43,7 +43,7 @@ test.describe("descubrimiento y metadatos", () => {
     await page.goto("/");
     await expect(page.locator("html")).toHaveAttribute("lang", "es-CO");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", new RegExp(`^${BASE}/?$`));
-    await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#0A0A0B");
+    await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#f5f5f7");
     await expect(page.locator('meta[name="keywords"]')).toHaveCount(0);
     await expect(page.locator("h1")).toHaveCount(1);
     const title = await page.title();

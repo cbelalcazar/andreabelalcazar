@@ -10,7 +10,6 @@ export default function WhatsAppFloat() {
   useEffect(() => {
     const hero = document.getElementById("hero");
     if (!hero) {
-      // Sin hero (p. ej. 404): mostrar en el siguiente frame, fuera del cuerpo del efecto
       const id = requestAnimationFrame(() => setVisible(true));
       return () => cancelAnimationFrame(id);
     }
@@ -23,7 +22,7 @@ export default function WhatsAppFloat() {
 
   return (
     <div
-      className={`fixed right-4 z-[85] transition-opacity duration-300 motion-reduce:transition-none ${
+      className={`fixed right-4 z-[85] transition-opacity duration-300 motion-reduce:transition-none md:right-6 ${
         visible ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
       style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
@@ -33,9 +32,10 @@ export default function WhatsAppFloat() {
         placement="float"
         aria-label="Escribir a Andrea por WhatsApp"
         tabIndex={visible ? 0 : -1}
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-ink shadow-[0_12px_32px_rgba(37,211,102,0.35)] transition-transform hover:scale-105 motion-reduce:transition-none"
+        className="flex h-13 items-center gap-2 rounded-full bg-[#1d1d1f] px-4 text-[15px] font-medium text-white shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition-transform hover:scale-[1.03] motion-reduce:transition-none md:px-5"
       >
-        <WhatsAppIcon className="h-7 w-7" />
+        <WhatsAppIcon className="h-5 w-5 text-[#25d366]" />
+        <span className="hidden sm:inline">Hablemos</span>
       </WhatsAppLink>
     </div>
   );
