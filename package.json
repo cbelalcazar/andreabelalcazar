@@ -52,7 +52,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
-    "jsdom": "^28.1.0",
+    "jsdom": "^30.0.1",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "schema-dts": "^2.0.0",
