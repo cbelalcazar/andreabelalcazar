@@ -48,3 +48,6 @@ next-env.d.ts
 
 # gstack (herramienta local)
 /.gstack
+
+# el ejemplo sí se versiona
+!.env.example
