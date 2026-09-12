@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# andreabelalcazar.com
 
-## Getting Started
+Sitio de Andrea Belalcázar, jefe de prensa y estratega de comunicación política (Cali, Colombia). Next.js 16 (App Router, Turbopack), React 19, Tailwind CSS 4, desplegado en Vercel.
 
-First, run the development server:
+## Requisitos
+
+- Node **22** (`.nvmrc`). Con nvm: `nvm use`. Next 16 no arranca en Node 16/18.
+- npm 10.
+
+## Comandos
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci                # instalar
+npm run dev           # desarrollo (http://localhost:3000)
+npm run build         # build de producción
+npm run start         # servir el build
+npm run lint          # eslint
+npm run typecheck     # tsc --noEmit
+npm run format        # prettier --check (format:fix para escribir)
+npm run test:unit     # vitest (tests/unit)
+npm run test:e2e      # playwright (tests/e2e) contra el build de producción
+npm run lhci          # Lighthouse CI con presupuestos (lighthouserc.json)
+npm run check         # lint + typecheck + unit + build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estructura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/app/            rutas: page, layout, not-found, error, loading, privacidad,
+                    robots.ts, sitemap.ts, manifest.ts, icon.svg, apple-icon.tsx,
+                    opengraph-image.tsx, twitter-image.tsx
+src/components/     layout (Header, MobileMenu, Footer, WhatsAppFloat, SkipLink)
+                    sections (Hero, Philosophy, Services, Trajectory, ContactCTA)
+                    analytics (Analytics, WhatsAppLink, ConsentBanner, WebVitals)
+                    media (LazyVideo) · seo (JsonLd) · icons
+src/content/site.ts TODO el contenido editable (textos, cargos, formación, contacto)
+src/lib/            seo.ts (JSON-LD), whatsapp.ts (enlaces wa.me con atribución)
+src/assets/         imágenes importadas (sin EXIF) y fuente para OG
+public/             vídeo (mp4 + webm), poster, llms.txt, .well-known/security.txt
+tests/              unit (vitest), e2e (playwright + axe)
+AUDITORIA-2026-09.md  auditoría completa y roadmap; audit-evidence/ capturas y Lighthouse
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Cómo editar contenido
 
-## Learn More
+Todo el texto vive en `src/content/site.ts`. Regla: solo datos verificados (hoja de vida oficial). Los huecos están marcados con `TODO(andrea)` y no se muestran en la web hasta completarse.
 
-To learn more about Next.js, take a look at the following resources:
+Para cambiar el número de WhatsApp o el correo: `site.whatsapp` y `site.email` en ese mismo archivo. Hay un test que protege el número.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Variables de entorno
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Ver `.env.example`. Ninguna es obligatoria. `NEXT_PUBLIC_GA_ID` activa Google Analytics 4 con banner de consentimiento; sin ella solo corre Vercel Analytics (sin cookies) cuando está desplegado en Vercel.
 
-## Deploy on Vercel
+## Despliegue
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Vercel despliega `main` en producción y cada rama/PR como preview (los previews llevan `X-Robots-Tag: noindex`). CI (`.github/workflows/ci.yml`) corre lint, typecheck, unit, build, Playwright + axe y Lighthouse CI en cada PR.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Re-auditoría
+
+Los comandos de verificación están en `AUDITORIA-2026-09.md`, sección 16.

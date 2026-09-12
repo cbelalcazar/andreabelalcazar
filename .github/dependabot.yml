@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      next:
+        patterns: ["next", "react", "react-dom", "eslint-config-next", "@next/*"]
+      tooling:
+        patterns:
+          [
+            "eslint*",
+            "prettier*",
+            "typescript",
+            "vitest",
+            "@vitejs/*",
+            "@playwright/*",
+            "@lhci/*",
+            "@testing-library/*",
+          ]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

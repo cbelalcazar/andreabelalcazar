@@ -1,12 +1,53 @@
 @import "tailwindcss";
 
-@theme {
+/*
+ * `@theme inline` es obligatorio aquí: las variables --font-inter/--font-playfair
+ * las define next/font en <html>, y con `@theme` normal la utilidad font-serif
+ * referenciaría una variable no resuelta en :root (bug X-01 de la auditoría).
+ */
+@theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --color-ink: #0a0a0b;
+  --color-ink-2: #121214;
+  --color-ink-3: #1a1a1e;
+  --color-paper: #f4f1ea;
+  --color-muted: #a9a9b3; /* 7.3:1 sobre ink */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-gold: oklch(76.9% 0.188 70.08);
+  --color-gold-deep: oklch(66.6% 0.179 58.318);
+  --color-whatsapp: #25d366;
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 6rem;
+    color-scheme: dark;
+    background-color: var(--color-ink);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-ink font-sans text-paper antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-gold) 35%, transparent);
+    color: #fff;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.14em] text-gold uppercase;
   }
 }

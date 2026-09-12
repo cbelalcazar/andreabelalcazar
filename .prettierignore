@@ -1,0 +1,12 @@
+.next
+node_modules
+package-lock.json
+audit-evidence
+AUDITORIA-2026-09.md
+public
+test-results
+playwright-report
+.lighthouseci
+.gstack
+.vscode
+*.md
