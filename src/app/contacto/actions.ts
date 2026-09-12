@@ -50,12 +50,17 @@ export async function enviarContacto(_prev: ContactState, formData: FormData): P
   const resend = new Resend(key);
   const to = process.env.CONTACT_TO_EMAIL ?? site.email;
   const { error } = await resend.emails.send({
-    from: process.env.CONTACT_FROM_EMAIL ?? "Formulario web <onboarding@resend.dev>",
+    // El remitente debe pertenecer a un dominio verificado en Resend. Hoy el único verificado en la cuenta
+    // es labrujaa.com; al verificar andreabelalcazar.com basta cambiar CONTACT_FROM_EMAIL en Vercel.
+    from: process.env.CONTACT_FROM_EMAIL?.replace(/^"|"$/g, "") ?? "Web Andrea Belalcázar <web@labrujaa.com>",
     to,
     replyTo: d.contacto.includes("@") ? d.contacto : undefined,
     subject: `[andreabelalcazar.com] ${d.necesidad} · ${d.nombre}${d.organizacion ? ` (${d.organizacion})` : ""}`,
     text: `Nombre: ${d.nombre}\nOrganización: ${d.organizacion || "-"}\nContacto: ${d.contacto}\nNecesidad: ${d.necesidad}\n\n${d.mensaje}`,
   });
-  if (error) return { ok: false, message: "No se pudo enviar. Intenta de nuevo o escríbeme por WhatsApp." };
+  if (error) {
+    console.error("[contacto] Resend error:", error.name, error.message);
+    return { ok: false, message: "No se pudo enviar. Intenta de nuevo o escríbeme por WhatsApp." };
+  }
   return { ok: true, message: "Gracias, tu mensaje fue enviado. Te respondo personalmente." };
 }
