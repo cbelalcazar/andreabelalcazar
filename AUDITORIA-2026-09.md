@@ -1417,7 +1417,7 @@ Total: **122 hallazgos únicos**, de los cuales 59 (S0 + S1) deben resolverse en
 
 ---
 
-*Fases 0, 1 y 2 ejecutadas y re-auditadas el mismo día: ver secciones 18 y 19.*
+*Fases 0, 1, 2 y el rediseño visual de la Fase 3 ejecutados y re-auditados el mismo día: ver secciones 18, 19 y 20.*
 
 ---
 
@@ -1597,3 +1597,49 @@ Comparativa con la línea base de la mañana (home móvil): perf 55 → 72, a11y
 | Fotos propias con derechos (hoy 3, dos de Instagram) | — | Andrea |
 | Performance móvil ≥ 90 | 70–84 según página (runtime Next + retrato LCP) | siguiente sprint técnico (P-08) |
 | Cadencia editorial | 12 artículos publicados el mismo día; el plan es 2/semana | Fase 3 |
+
+---
+
+## 20. Fase 3 (parcial): rediseño visual en producción (12 de septiembre de 2026, noche)
+
+**Commits:** `2d62500` (sistema visual), `85d0c24` (fix CLS), hero partido (commit posterior en `main`). Aprobado por Carlos desde una galería de capturas antes de fusionar.
+
+### 20.1 Sistema visual nuevo
+
+| Elemento | Antes | Ahora |
+|---|---|---|
+| Paleta | Negro #0A0A0B + dorado, todo oscuro | Claro por defecto (#F5F5F7 / #1D1D1F) con secciones oscuras a todo el ancho (`.theme-dark` redefine los tokens) |
+| Tipografía | Playfair Display + Inter | Inter Tight (titulares, tracking −0.035em, 40–84 px) + Inter (texto) |
+| Acento | Dorado ubicuo | Bronce único (#9A5B00 en claro, #E8A33A en oscuro), solo en enlaces y detalles |
+| Componentes | Tarjetas con borde fino, pastillas de 9 px | Tarjetas de 28 px de radio sobre blanco con sombra suave, enlaces con chevrón, botón píldora negro |
+| Barra | Píldora flotante de 64 px | Barra de 48/56 px translúcida con desenfoque solo en desktop |
+| Hero | Texto + retrato 4:5 | Composición partida: titular a la izquierda, retrato 4:5 a la derecha; en móvil el retrato va primero (decisión de Carlos: la cara debe verse sin scroll) |
+| Movimiento | Ninguno | Ninguno (se probó un reveal con scroll-driven animations y se descartó: contenido invisible en capturas de página completa) |
+| OG e iconos | Oscuros | Claros, coherentes con el sitio |
+
+Los tokens viven en `src/app/globals.css` (`:root` y `.theme-dark`) y se exponen a Tailwind con `@theme inline`; ningún componente lleva colores hexadecimales salvo la barra y el menú móvil, que deben verse igual sobre cualquier sección.
+
+### 20.2 Hallazgo de causa raíz: CLS intermitente
+
+Desde la mañana aparecía en 1 de cada 4–5 ejecuciones de Lighthouse un CLS de 0.37–0.40 atribuido al `<footer>`. Se reprodujo en navegador real con `PerformanceObserver` y se trazó la altura del documento en el tiempo: el HTML estático incluía el fallback de `src/app/loading.tsx` («Cargando…», 60 vh) y el contenido real llegaba después por streaming, empujando el footer que ya estaba en el viewport. **Solución:** eliminar `loading.tsx` (un sitio 100 % prerenderizado no lo necesita). Resultado: CLS 0 en tres cargas reales y en todas las ejecuciones posteriores de Lighthouse.
+
+### 20.3 Medido en producción (rediseño, home)
+
+| Métrica | Móvil (3 ejecuciones) | Desktop |
+|---|---|---|
+| Performance | 62 / 70 / 77 (mediana 70) | 90 |
+| Accessibility | 100 | 100 |
+| Best Practices | 100 | 100 |
+| SEO | 100 | 100 |
+| LCP | 2.9–3.0 s | 0.6 s |
+| TBT | 700–2 700 ms (ruido local) | 260 ms |
+| CLS | **0** | **0** |
+| Peso | 410 KiB | 455 KiB |
+
+Páginas interiores (build local, móvil): artículo 85, servicio 78, sobre mí 64; accesibilidad 100 en todas.
+
+### 20.4 Pendiente de la Fase 3
+
+- Rendimiento móvil ≥ 90: el límite sigue siendo el runtime de Next (TBT) y el retrato como LCP; opciones en 18.3.
+- Fotografía: el diseño está listo para un retrato editorial y fotos de trabajo con derechos; es el cambio que más elevaría la percepción.
+- Cadencia editorial (2 artículos/semana), formulario (clave de Resend), Search Console (enviar sitemap).
