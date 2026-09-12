@@ -40,7 +40,7 @@ export default function Hero() {
           </p>
           <h1
             id="hero-title"
-            className="font-serif text-4xl leading-[1.08] text-balance text-white sm:text-5xl md:text-6xl"
+            className="font-serif text-4xl leading-[1.08] text-balance text-white sm:text-5xl lg:text-[3.25rem] xl:text-6xl"
           >
             {hero.h1}
           </h1>

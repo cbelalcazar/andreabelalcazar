@@ -3,6 +3,7 @@
 **Versión:** 1.0 · **Fecha:** 12 de septiembre de 2026 · **Auditor:** Claude (Fable 5.1) · **Solicitante:** Carlos Belalcázar
 **Alcance:** producto, posicionamiento SEO, contenido, UX/UI, frontend, rendimiento, accesibilidad, backend/infra/seguridad, calidad de código, testing, analítica y roadmap de implementación.
 **Estado del código auditado:** commit `a6cddef` (main), desplegado en Vercel en `https://www.andreabelalcazar.com`.
+**Actualización 12-09-2026 (tarde):** Fases 0 y 1 implementadas y desplegadas en el commit `bb1a780`; resultados de la re-auditoría en la sección 18.
 **Versión web (privada):** https://claude.ai/code/artifact/936b24b9-b583-424b-b10d-3f721943981c
 **Regla de este documento:** el auditor **no modifica código**. Todo lo aquí descrito es prescriptivo para la IA/equipo que implemente, y verificable en la re-auditoría (sección 16).
 
@@ -1416,4 +1417,116 @@ Total: **122 hallazgos únicos**, de los cuales 59 (S0 + S1) deben resolverse en
 
 ---
 
-*Fin del documento. Siguiente paso: aprobar Fase 0, ejecutar las 10 tareas de 14.0 y solicitar la re-auditoría F0 (sección 16.6).*
+*Fases 0 y 1 ejecutadas y re-auditadas el mismo día: ver sección 18.*
+
+---
+
+## 18. Re-auditoría F0 + F1 (12 de septiembre de 2026, producción)
+
+**Commit desplegado:** `bb1a780` (main) · **Deploy Vercel:** `dpl_8WQUFyxmX5xC1dD7CrUZNJ5VE1JS` · **Ejecutor:** Claude (misma sesión que la auditoría).
+Evidencia: `audit-evidence/reaudit-f1-*.png`, `audit-evidence/reaudit-f1-lh-mobile.json`, `audit-evidence/reaudit-f1-lh-desktop.json`.
+
+### 18.1 Checks HTTP (sección 16.2)
+
+| Comprobación | Antes | Ahora | Estado |
+|---|---|---|---|
+| `/robots.txt` · `/sitemap.xml` · `/manifest.webmanifest` | 404 · 404 · 404 | 200 · 200 · 200 | ✅ |
+| `/opengraph-image` · `/twitter-image` | no existían (`og:image` = JPG de 11 MB) | 200 · PNG 1200×630 · **263 KB** | ✅ |
+| `/icon.svg` · `/apple-icon` | 404 · 404 | 200 · 200 | ✅ |
+| `/llms.txt` · `/.well-known/security.txt` | 404 · 404 | 200 · 200 | ✅ |
+| `/privacidad` | 404 | 200 | ✅ |
+| 404 de marca (`/no-existe`) | genérica en inglés, doble `<title>` | 404 en español, con enlaces, `noindex` | ✅ |
+| `/portrait.jpg`, `/next.svg`, `/vercel.svg`… | 200 (11 MB expuestos, basura de plantilla) | 404 | ✅ |
+| `/ig` → UTM Instagram | — | 307 con `utm_source=instagram` | ✅ |
+| Cabeceras de seguridad | solo HSTS | CSP, HSTS `includeSubDomains; preload`, XFO DENY, COOP, nosniff, Referrer-Policy, Permissions-Policy | ✅ 7/7 |
+| `x-powered-by` | (oculto por Vercel) | ausente | ✅ |
+| `<html lang>` | `es` | `es-CO` | ✅ |
+| `<link rel="canonical">` | ausente | `https://www.andreabelalcazar.com` | ✅ |
+| `theme-color` | ausente | `#0A0A0B` | ✅ |
+| `meta keywords` | presente | 0 | ✅ |
+| `<h1>` | 1 abstracto | 1 descriptivo | ✅ |
+| Preload de la imagen LCP | no (`loading="lazy"`) | `<link rel="preload" as="image">` + `sizes` explícito | ✅ |
+| Enlaces WhatsApp con texto prellenado | 0 de 5 | 9 de 9 (`?text=…placement`) | ✅ |
+| Enlaces `href="#"` | 1 | 0 | ✅ |
+| JSON-LD | `Person` suelto con X/Twitter 404 | `@graph` WebSite + Person (`@id`, `worksFor`, `alumniOf`, `address`, `email`, `makesOffer`); `sameAs` vacío hasta verificar | ✅ |
+| Título del cargo | "Directora de Estrategia de Prensa" | "Jefe de Prensa y Relaciones Públicas" (HV) | ✅ |
+| Sitemap | — | 2 URLs (`/`, `/privacidad`) | ✅ (crece en F2) |
+
+### 18.2 Checks en navegador (sección 16.3, Chromium 390×844)
+
+| Comprobación | Antes | Ahora |
+|---|---|---|
+| `fontFamily` del `h1` | `ui-sans-serif, system-ui` | `"Playfair Display"` |
+| `fontFamily` del `body` | `ui-sans-serif` | `Inter` |
+| `document.fonts` cargadas | 0 | 5 |
+| Menú móvil | inexistente (`nav` `display:none`) | botón `aria-expanded` + diálogo accesible |
+| Skip link | no | sí |
+| Fuente mínima visible | 9 px | 12 px |
+| Scroll horizontal | no | no |
+| Flotante WhatsApp sobre el hero | tapaba «Ver Trayectoria» | oculto (`aria-hidden=true`) mientras el hero es visible |
+| Peticiones `.mp4/.webm` en carga inicial | 1 (1.12 MB) | 0 |
+| Peticiones a terceros | transparenttextures.com | 0 |
+| Errores de consola | 0 | 0 |
+
+### 18.3 Lighthouse 12.8.2 (producción, mediana de 3 ejecuciones móviles)
+
+| Métrica | Antes (21-04 → medido 12-09 mañana) | Ahora (producción, 12-09 tarde) | Objetivo F1 |
+|---|---|---|---|
+| Performance móvil | **55** | **76** (71 / 76 / 77) | ≥ 90 (pendiente: JS runtime de Next; ver nota) |
+| Accessibility móvil | 90 | **100** | 100 ✅ |
+| Best Practices móvil | 100 | **100** | 100 ✅ |
+| SEO móvil | 100* | **100** (+ robots/sitemap/canonical reales) | 100 ✅ |
+| LCP móvil | 2.8 s (`<h1>`; el retrato ni aparecía en el pliegue) | 3.4 s (retrato 1080 px sobre el pliegue, con preload) | < 2.5 s (pendiente) |
+| TBT móvil | **5 820 ms** | **595 ms** | < 300 ms (pendiente) |
+| Speed Index móvil | **32.5 s** | **2.7 s** | < 4 s ✅ |
+| CLS | 0 | 0 | 0 ✅ |
+| Peso total móvil | 1 377 KiB | **413 KiB** | < 600 KiB ✅ |
+| Vídeo en carga inicial | 1 120 KiB | 0 | 0 ✅ |
+| Terceros | 1 (texture) | 0 | 0 ✅ |
+| Performance desktop | 100 | 98 | ≥ 95 ✅ |
+| Accessibility desktop | 95 | **100** | 100 ✅ |
+| LCP desktop | 0.7 s (imagen lazy) | 0.8 s (imagen preload) | < 1.2 s ✅ |
+| `lcp-lazy-loaded` | FAIL | pass | ✅ |
+| `color-contrast` | FAIL (6 nodos) | pass | ✅ |
+| `link-name` | FAIL | pass | ✅ |
+
+Qué queda para llegar a ≥ 90 en móvil: el coste restante es el runtime de Next/React (~200 KB de JS comprimido que se evalúa en CPU simulada ×4: TBT ≈ 600 ms) y el retrato, que ahora sí es el elemento LCP en móvil. Palancas para F2: (1) servir el retrato móvil a 750 px (`sizes` más ajustado) o recortarlo 4:3 específico; (2) reducir Client Components (solo quedan MobileMenu, WhatsAppFloat, LazyVideo y el listener de analítica); (3) evaluar `experimental.optimizePackageImports`/`browserslist` moderno para quitar ~14 KB de polyfills legacy. Con datos reales (Speed Insights, p75) es habitual que un sitio así mida mejor que en laboratorio.
+
+Nota metodológica: Lighthouse local en este Mac tiene una variación de ±15 puntos en «performance» móvil entre ejecuciones consecutivas (CPU simulada ×4). Los valores estructurales (a11y, best-practices, SEO, peso, CLS, LCP lazy) son estables; el veredicto definitivo de rendimiento debe tomarse de PageSpeed Insights / CrUX en 28 días con datos reales de usuarios (Speed Insights ya está instalado para eso).
+
+### 18.4 Calidad (sección 16.1)
+
+| Check | Resultado |
+|---|---|
+| `npm run typecheck` | 0 errores |
+| `npm run lint` | 0 errores, 0 warnings |
+| `npm run format` | Prettier OK |
+| `npm run test:unit` | 14/14 (3 archivos) |
+| `npm run test:e2e` | 26/26 (desktop + móvil), 0 violaciones axe serias/críticas |
+| `npm run build` | 12 rutas estáticas |
+| Assets > 400 KB | ninguno (`public/` + `src/assets/`) |
+| JS comprimido total | ~213 KB (runtime Next + React + página) |
+
+### 18.5 Hallazgos cerrados en esta entrega
+
+X-01/F-01, X-02/S-02, S-03…S-09, S-11…S-17, P-01…P-07, P-09…P-11, F-02…F-15, U-01…U-05, U-07…U-11, U-13, U-14, U-16, U-17, A-01…A-13, B-01…B-05, B-08 (noindex previews; la protección SSO de previews ya estaba activa), B-10…B-13, T-01…T-04, T-06…T-12, M-04 (Speed Insights), M-05, M-06, C-02, C-03 (los 6 cargos y 3 títulos visibles), C-04, C-07 (correo de la HV enlazado), C-08 (política de privacidad), C-11, C-12.
+
+### 18.6 Hallazgos abiertos y por qué
+
+| ID | Motivo | Quién desbloquea |
+|---|---|---|
+| S-01 | Verificar dominio en Search Console y enviar `sitemap.xml` (requiere acceso a la cuenta de Google / DNS de GoDaddy) | Carlos |
+| M-01, M-02, M-03, M-07 | GA4 está implementado con Consent Mode v2 pero **desactivado** hasta definir `NEXT_PUBLIC_GA_ID` en Vercel → Settings → Environment Variables. Al hacerlo, GA, el banner de consentimiento y el evento `contact_whatsapp` se activan solos | Carlos (crear propiedad GA4) |
+| M-08 | Sentry no instalado (decisión: esperar a tener tráfico medido) | — |
+| C-01, C-05, C-06, C-09, C-10, U-06 (parcial), U-12, U-15, S-10, S-18 | Fase 2: páginas de servicios/casos/prensa/blog, testimonios, fotos propias, formulario. Requieren datos y material de Andrea (§17.5) | Andrea + siguiente sprint |
+| `sameAs` | Vacío a propósito: el perfil de X no existe y LinkedIn/Instagram no están verificados | Andrea (URLs reales) |
+| Fechas de cargos | `TODO(andrea)` en `src/content/site.ts`; no se muestran hasta completarse | Andrea |
+| B-06, B-07 | Redirección apex y SPF/DKIM/DMARC dependen de DNS en GoDaddy y del correo con dominio propio | Carlos |
+| T-05, T-09 | Validación Zod de contenido y pruebas visuales llegan con el pipeline MDX de F2 | siguiente sprint |
+| lhci en CI | Configurado con «warn» en performance (los runners de GitHub son lentos) y «error» en a11y/SEO/best-practices/peso/LCP-lazy/contraste | — |
+
+### 18.7 Tres acciones inmediatas para Carlos (sin código)
+
+1. **Vercel → Settings → Environment Variables:** `NEXT_PUBLIC_GA_ID = G-XXXXXXX` (propiedad GA4 nueva). Redeploy. Verificar en GA4 DebugView que el clic en un CTA dispara `contact_whatsapp`.
+2. **Search Console:** añadir propiedad de dominio `andreabelalcazar.com` (registro TXT en GoDaddy), enviar `https://www.andreabelalcazar.com/sitemap.xml`, solicitar indexación de `/`.
+3. **Compartir la URL por WhatsApp** a un contacto y confirmar que aparece la tarjeta con foto y título.
