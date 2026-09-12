@@ -49,10 +49,16 @@ export async function enviarContacto(_prev: ContactState, formData: FormData): P
   }
   const resend = new Resend(key);
   const to = (process.env.CONTACT_TO_EMAIL ?? site.email).trim().replace(/^"|"$/g, "");
-  // Resend exige ASCII en el campo from: se quitan tildes del nombre visible (Belalcázar -> Belalcazar).
-  const rawFrom =
-    (process.env.CONTACT_FROM_EMAIL ?? "").trim().replace(/^"|"$/g, "") || "Web Andrea Belalcazar <web@labrujaa.com>";
-  const from = rawFrom.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  // Remitente: debe ser "Nombre <correo@dominio-verificado>" en ASCII. Si la variable de entorno viene mal
+  // formada (comillas, tildes, sin <...>), se usa el valor por defecto del dominio verificado.
+  const DEFAULT_FROM = "Web Andrea Belalcazar <web@labrujaa.com>";
+  const envFrom = (process.env.CONTACT_FROM_EMAIL ?? "")
+    .trim()
+    .replace(/^["']|["']$/g, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  const fromOk = /^(?:[^<>@\s][^<>@]*<[^\s@<>]+@[^\s@<>]+>|[^\s@<>]+@[^\s@<>]+)$/.test(envFrom);
+  const from = fromOk ? envFrom : DEFAULT_FROM;
   const { error } = await resend.emails.send({
     // El remitente debe pertenecer a un dominio verificado en Resend. Hoy el único verificado en la cuenta
     // es labrujaa.com; al verificar andreabelalcazar.com basta cambiar CONTACT_FROM_EMAIL en Vercel.
@@ -67,7 +73,7 @@ export async function enviarContacto(_prev: ContactState, formData: FormData): P
     return {
       ok: false,
       message: "No se pudo enviar. Intenta de nuevo o escríbeme por WhatsApp.",
-      detail: `${error.name}: ${error.message} (from: ${from.replace(/.*<|>.*/g, "")})`,
+      detail: `${error.name}: ${error.message} (from usado: ${from}; variable válida: ${fromOk})`,
     };
   }
   return { ok: true, message: "Gracias, tu mensaje fue enviado. Te respondo personalmente." };
