@@ -26,9 +26,12 @@ npm run check         # lint + typecheck + unit + build
 ## Estructura
 
 ```
-src/app/            rutas: page, layout, not-found, error, loading, privacidad,
-                    robots.ts, sitemap.ts, manifest.ts, icon.svg, apple-icon.tsx,
-                    opengraph-image.tsx, twitter-image.tsx
+src/app/            rutas: home, sobre-mi, servicios/[slug], casos/[slug], blog/[slug],
+                    blog/tema/[tema], glosario/[termino], prensa, contacto, privacidad,
+                    not-found, error, loading, robots.ts, sitemap.ts, manifest.ts, rss.xml,
+                    icon.svg, apple-icon.tsx, opengraph-image.tsx (global y por artículo)
+src/content/        MDX de servicios, casos, blog y glosario + site.ts
+src/lib/content.ts  índice de contenido (Zod) que alimenta sitemap, RSS y relacionados
 src/components/     layout (Header, MobileMenu, Footer, WhatsAppFloat, SkipLink)
                     sections (Hero, Philosophy, Services, Trajectory, ContactCTA)
                     analytics (Analytics, WhatsAppLink, ConsentBanner, WebVitals)
@@ -43,13 +46,16 @@ AUDITORIA-2026-09.md  auditoría completa y roadmap; audit-evidence/ capturas y 
 
 ## Cómo editar contenido
 
-Todo el texto vive en `src/content/site.ts`. Regla: solo datos verificados (hoja de vida oficial). Los huecos están marcados con `TODO(andrea)` y no se muestran en la web hasta completarse.
+- Datos de la persona (nombre, cargo, contacto, cargos, formación, nav): `src/content/site.ts`.
+- Servicios, casos, artículos y glosario: archivos MDX en `src/content/{servicios,casos,blog,glosario}/`. El frontmatter se valida con Zod (`src/lib/content.ts`); si falta un campo o una descripción supera 170 caracteres, el build falla con un mensaje claro.
+- Publicar un artículo = crear `src/content/blog/<slug>.mdx` con `title`, `description` (100–170), `date`, `tema`, `tags`, `faq` y `draft: false`, y hacer push a `main`. El sitemap, el RSS, el hub de tema, la imagen OG y los enlaces relacionados se generan solos.
+- Regla: solo datos verificados. Los huecos están marcados con `TODO` y no se muestran hasta completarse.
 
 Para cambiar el número de WhatsApp o el correo: `site.whatsapp` y `site.email` en ese mismo archivo. Hay un test que protege el número.
 
 ## Variables de entorno
 
-Ver `.env.example`. Ninguna es obligatoria. `NEXT_PUBLIC_GA_ID` activa Google Analytics 4 con banner de consentimiento; sin ella solo corre Vercel Analytics (sin cookies) cuando está desplegado en Vercel.
+Ver `.env.example`. Ninguna es obligatoria. GA4 usa `G-5S474KXVJ8` por defecto (con banner de consentimiento; el script solo se descarga si el visitante acepta). `RESEND_API_KEY` activa el formulario de contacto; sin ella la página muestra WhatsApp y correo.
 
 ## Despliegue
 

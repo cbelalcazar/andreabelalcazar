@@ -3,7 +3,7 @@
 **Versión:** 1.0 · **Fecha:** 12 de septiembre de 2026 · **Auditor:** Claude (Fable 5.1) · **Solicitante:** Carlos Belalcázar
 **Alcance:** producto, posicionamiento SEO, contenido, UX/UI, frontend, rendimiento, accesibilidad, backend/infra/seguridad, calidad de código, testing, analítica y roadmap de implementación.
 **Estado del código auditado:** commit `a6cddef` (main), desplegado en Vercel en `https://www.andreabelalcazar.com`.
-**Actualización 12-09-2026 (tarde):** Fases 0 y 1 implementadas y desplegadas en el commit `bb1a780`; resultados de la re-auditoría en la sección 18.
+**Actualización 12-09-2026 (tarde):** Fases 0 y 1 desplegadas en `bb1a780` (sección 18) y Fase 2 desplegada en `154885d` (sección 19).
 **Versión web (privada):** https://claude.ai/code/artifact/936b24b9-b583-424b-b10d-3f721943981c
 **Regla de este documento:** el auditor **no modifica código**. Todo lo aquí descrito es prescriptivo para la IA/equipo que implemente, y verificable en la re-auditoría (sección 16).
 
@@ -1417,7 +1417,7 @@ Total: **122 hallazgos únicos**, de los cuales 59 (S0 + S1) deben resolverse en
 
 ---
 
-*Fases 0 y 1 ejecutadas y re-auditadas el mismo día: ver sección 18.*
+*Fases 0, 1 y 2 ejecutadas y re-auditadas el mismo día: ver secciones 18 y 19.*
 
 ---
 
@@ -1530,3 +1530,70 @@ X-01/F-01, X-02/S-02, S-03…S-09, S-11…S-17, P-01…P-07, P-09…P-11, F-02�
 1. **Vercel → Settings → Environment Variables:** `NEXT_PUBLIC_GA_ID = G-XXXXXXX` (propiedad GA4 nueva). Redeploy. Verificar en GA4 DebugView que el clic en un CTA dispara `contact_whatsapp`.
 2. **Search Console:** añadir propiedad de dominio `andreabelalcazar.com` (registro TXT en GoDaddy), enviar `https://www.andreabelalcazar.com/sitemap.xml`, solicitar indexación de `/`.
 3. **Compartir la URL por WhatsApp** a un contacto y confirmar que aparece la tarjeta con foto y título.
+
+---
+
+## 19. Fase 2 ejecutada y re-auditada (12 de septiembre de 2026, producción)
+
+**Commit desplegado:** `154885d` (main) · **Evidencia:** `audit-evidence/reaudit-f2-*`.
+Decisión previa de Carlos: ejecutar la Fase 2 **sin esperar datos de Andrea**. Regla aplicada: nada inventado; los casos se publican sin la sección de resultados y los periodos sin fecha confirmada no se muestran.
+
+### 19.1 Qué se construyó
+
+| Bloque | Detalle |
+|---|---|
+| Motor de contenido | MDX bajo `src/content/{servicios,casos,blog,glosario}` con frontmatter validado por Zod en `src/lib/content.ts`. Un único índice alimenta rutas, sitemap, RSS, hubs y relacionados. Plugins `remark-frontmatter`, `remark-gfm`, `rehype-slug`, `rehype-autolink-headings` (como strings, requisito de Turbopack). |
+| Servicios | 4 páginas (`/servicios/*`) con «para quién», entregables, FAQ (`FAQPage`), `Service` JSON-LD, casos y artículos relacionados, CTA con atribución por servicio. |
+| Casos | 6 páginas (`/casos/*`) con Contexto → Reto → Qué hice → Resultados (pendientes) → Aprendizaje. Títulos de cargo exactos de la HV. |
+| Blog | 12 artículos de 900–1 300 palabras (prensa, comunicación política, crisis, IA, marketing digital), cada uno con respuesta directa inicial, H2 en forma de pregunta, tabla o pasos, checklist, 3 FAQ, 2 enlaces externos y 3 internos. Hubs por tema (`/blog/tema/*`), `Article` JSON-LD, imagen OG dinámica por artículo, `ShareBar`, autora enlazada. |
+| Glosario | 30 términos (`/glosario/*`) con `DefinedTerm`/`DefinedTermSet`, ejemplo y «por qué importa», enlaces cruzados. |
+| Sobre mí | Bio, 6 cargos, 3 títulos, herramientas, método; `ProfilePage` JSON-LD. |
+| Prensa | Kit: bio de 50 y 150 palabras, temas de opinión, datos para créditos, 2 fotos descargables, contacto de prensa. |
+| Contacto | WhatsApp, correo, ubicación y formulario con Server Action (Zod + honeypot + rate limit + Resend). El formulario se activa al definir `RESEND_API_KEY`; sin ella la página lo indica y ofrece los otros canales. |
+| Home | Servicios enlazados a sus páginas, 3 casos destacados, 3 artículos recientes; navegación real (Servicios · Casos · Blog · Sobre mí · Contacto). |
+| SEO técnico | Sitemap dinámico (66 URLs), RSS estático, breadcrumbs visibles + `BreadcrumbList` en todas las páginas interiores, `CollectionPage` en índices, `alternates.types` RSS, `google-site-verification` en el `<head>`. |
+| Analítica | GA4 `G-5S474KXVJ8` con Consent Mode v2. `gtag.js` (190 KB) **solo se descarga cuando el visitante acepta**; los eventos previos quedan en `dataLayer`. Vercel Analytics y Speed Insights sin cookies. |
+| Calidad | 19 tests unitarios (índice de contenido, enlaces internos, palabras prohibidas, JSON-LD, robots/sitemap/manifest), 52 E2E (10 rutas nuevas con axe, Article/FAQ/OG por artículo, sitemap ≥ 45, RSS, GSC meta), Lighthouse CI sobre 4 URLs. |
+
+### 19.2 Medido en producción
+
+| Métrica | Antes de la auditoría | Tras F0+F1 | Tras F2 |
+|---|---|---|---|
+| Rutas indexables | 1 | 2 | **66** |
+| Palabras indexables (sin nav/footer) | 273 | ~900 | **37 143** |
+| Artículos | 0 | 0 | 12 |
+| Tipos de JSON-LD | Person | WebSite, Person | + Service, Article, FAQPage, BreadcrumbList, DefinedTerm, DefinedTermSet, ProfilePage, CollectionPage |
+| Imágenes OG | 1 rota (11 MB) | 1 (263 KB) | 13 (1 global + 12 por artículo, ~70 KB) |
+| RSS | no | no | sí |
+| Search Console | sin verificar | sin verificar | meta de verificación publicada (falta enviar sitemap desde la consola) |
+| GA4 | no | preparado, apagado | **activo con consentimiento** |
+
+### Lighthouse 12.8.2 en producción (móvil, 5 ejecuciones de la home; artículo y desktop 1 ejecución)
+
+| Página | Perf | A11y | BP | SEO | LCP | TBT | CLS | Peso |
+|---|---|---|---|---|---|---|---|---|
+| Home móvil (mediana de 5) | **72** (52–74) | 100 | 100 | 100 | 3.1 s | 940 ms | 0 (4 de 5; una ejecución marcó 0.40 en el footer que no se reprodujo en navegador real: `PerformanceObserver` = 0) | 439 KiB |
+| Artículo móvil | 72 | 100 | 100 | 100 | 2.1 s | 1 720 ms | 0 | 402 KiB |
+| Home desktop | 92 | 100 | 100 | 100 | 0.7 s | 220 ms | 0 | 473 KiB |
+
+Comparativa con la línea base de la mañana (home móvil): perf 55 → 72, a11y 90 → 100, TBT 5 820 → 940 ms, Speed Index 32.5 → 2.7 s, peso 1 377 → 439 KiB. El rendimiento móvil sigue limitado por el runtime de Next (TBT) y por el retrato como LCP; es el trabajo técnico pendiente para la Fase 3 (ver P-08 y 18.3).
+
+### 19.3 Checks (todas las rutas nuevas, producción)
+
+- 16 rutas sondeadas → 200 con el `content-type` correcto; `/blog/<slug>/opengraph-image` 200 · PNG · 70 KB.
+- Sin fuga de frontmatter en el HTML (`remark-frontmatter`).
+- Sin scroll horizontal en móvil en artículos (columnas de grid con `min-w-0`).
+- axe: 0 violaciones serias/críticas en las 10 rutas de muestra; Lighthouse a11y 100 en home, artículo y servicio.
+- Checklists GFM sin `<input>` huérfano (sustituido por marca decorativa).
+- Enlaces en texto corrido subrayados (regla `link-in-text-block`).
+
+### 19.4 Abierto tras F2
+
+| Tema | Estado | Desbloquea |
+|---|---|---|
+| `RESEND_API_KEY`, `CONTACT_TO_EMAIL` en Vercel | formulario apagado (WhatsApp y correo funcionan) | Carlos (cuenta Resend gratuita) |
+| Enviar `sitemap.xml` y pedir indexación en Search Console | meta publicada | Carlos |
+| Resultados con cifras en los 6 casos, fechas de cargos, `sameAs` | secciones/campos vacíos a propósito | Andrea |
+| Fotos propias con derechos (hoy 3, dos de Instagram) | — | Andrea |
+| Performance móvil ≥ 90 | 70–84 según página (runtime Next + retrato LCP) | siguiente sprint técnico (P-08) |
+| Cadencia editorial | 12 artículos publicados el mismo día; el plan es 2/semana | Fase 3 |
