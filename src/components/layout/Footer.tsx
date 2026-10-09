@@ -32,6 +32,29 @@ const groups = [
   },
 ];
 
+/** Enlaces del glosario en todo el sitio: refuerzan el rastreo de las fichas (plan G-13). */
+const glossaryLinks = [
+  { href: "/glosario/vocero", label: "Vocero" },
+  { href: "/glosario/agenda-setting", label: "Agenda setting" },
+  { href: "/glosario/off-the-record", label: "Off the record" },
+  { href: "/glosario/rueda-de-prensa", label: "Rueda de prensa" },
+  { href: "/glosario/gestion-de-crisis", label: "Gestión de crisis" },
+  { href: "/glosario/relaciones-publicas", label: "Relaciones públicas" },
+  { href: "/glosario/opinion-publica", label: "Opinión pública" },
+  { href: "/glosario/desinformacion", label: "Desinformación" },
+  { href: "/glosario/voceria", label: "Vocería" },
+  { href: "/glosario/narrativa", label: "Narrativa" },
+  { href: "/glosario/asuntos-publicos", label: "Asuntos públicos" },
+  { href: "/glosario/pauta-digital", label: "Pauta digital" },
+  { href: "/glosario/segmentacion", label: "Segmentación" },
+  { href: "/glosario/clipping", label: "Clipping" },
+  { href: "/glosario/embargo-informativo", label: "Embargo informativo" },
+  { href: "/glosario/free-press", label: "Free press" },
+  { href: "/glosario/earned-media", label: "Earned media" },
+  { href: "/glosario/owned-media", label: "Owned media" },
+  { href: "/glosario/paid-media", label: "Paid media" },
+];
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -77,6 +100,22 @@ export default function Footer() {
             </ul>
           </address>
         </div>
+        <nav aria-label="Glosario" className="mt-10 border-t border-line pt-5">
+          <p className="mb-2 font-semibold text-ink">
+            <Link href="/glosario" className="hover:underline">
+              Glosario
+            </Link>
+          </p>
+          <ul className="flex flex-wrap gap-x-4 gap-y-1">
+            {glossaryLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="inline-flex min-h-8 items-center hover:text-ink hover:underline">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div className="mt-10 flex flex-col gap-3 border-t border-line pt-5 md:flex-row md:items-center md:justify-between">
           <p>
             Copyright © {year} {site.name}. {site.jobTitle}, {site.employer.name}.
