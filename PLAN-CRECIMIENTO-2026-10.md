@@ -506,3 +506,17 @@ Ritmo: 2 posts al mes, mínimo 1.200 palabras, con experiencia propia. El blog a
 | A-5 | Revisar la plantilla de comunicado y el checklist de rueda de prensa | G-14 | Los descargables |
 | A-6 | Perfiles sociales verificados | G-33 | `sameAs` |
 | A-7 | Pendientes de la auditoría 2026-09 (fechas de cargos, fotos propias) | — | E-E-A-T de /sobre-mi |
+
+---
+
+## Estado de ejecución
+
+| Fecha | Commit | Tareas | Notas |
+|---|---|---|---|
+| 2026-10-09 | `d076ac8` | G-01, G-02, G-03, G-04, G-05, G-06, G-07, G-50, G-51 | Vocero, agenda setting y off the record reescritos sin la sección "Lo que he visto" (pendiente A-2). Fuentes comprobadas: DLE vía búsqueda (dle.rae.es bloquea el acceso automático), DOIs vía Crossref. `reviewed: false` en todas las fichas hasta A-3 |
+| 2026-10-09 | `f98e732` | G-08, G-09, G-10, G-13, G-15, G-52 (+ parte de G-12) | 30/30 fichas con seoTitle y seoDescription; descripciones fieles al contenido real de cada ficha. CTA contextual con textos neutros sobre servicios ya publicados (validación de Andrea en A-4). Eventos `glossary_guide_click` y `glossary_service_click` vía `data-track` |
+
+**Pendiente:**
+- **Carlos:** G-11 (pedir la indexación de las fichas reescritas), D-01…D-04 y marcar `contact_whatsapp` como evento clave en GA4.
+- **Andrea:** A-1…A-7.
+- **Código:** G-14 (descargables, espera a A-5), fase 3 (espera a G-30), y ampliar las 19 fichas cortas cuando la revisión 1 confirme que el patrón funciona.
