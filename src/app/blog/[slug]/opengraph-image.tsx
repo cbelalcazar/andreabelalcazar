@@ -64,11 +64,11 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           justifyContent: "space-between",
           alignItems: "center",
           fontSize: 26,
-          color: "#5f5f64",
+          color: "#a1a1a6",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={{ color: "#1d1d1f", fontFamily: "InterTight", fontSize: 30 }}>Andrea Belalcázar</span>
+          <span style={{ color: "#ffffff", fontFamily: "InterTight", fontSize: 30 }}>Andrea Belalcázar</span>
           <span>Estrategia de prensa y comunicación política · Cali</span>
         </div>
         <span>andreabelalcazar.com</span>

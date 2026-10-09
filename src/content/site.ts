@@ -141,6 +141,29 @@ export const serviceCta: Record<string, { title: string; text: string }> = {
   },
 };
 
+/**
+ * Fichas del glosario ordenadas por impresiones en Search Console
+ * (2026-09-09 → 2026-10-06). Ordena "Los más consultados" en /glosario
+ * y los conceptos clave de cada servicio. Revisar cada mes (plan §8).
+ */
+export const glossaryByDemand = [
+  "vocero",
+  "agenda-setting",
+  "off-the-record",
+  "rueda-de-prensa",
+  "media-training",
+  "mensaje-clave",
+  "framing",
+  "boletin-de-prensa",
+  "jefe-de-prensa",
+  "fact-checking",
+  "comunicado-de-prensa",
+  "kpi-de-comunicacion",
+  "storytelling-politico",
+  "reputacion-institucional",
+  "monitoreo-de-medios",
+] as const;
+
 export type Role = {
   org: string;
   title: string;

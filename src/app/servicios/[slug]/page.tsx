@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 import PageHeader from "@/components/content/PageHeader";
 import Faq from "@/components/content/Faq";
 import ContactBlock from "@/components/content/ContactBlock";
-import { CaseCard, PostCard, ServiceCard } from "@/components/content/Cards";
+import { CaseCard, PostCard, ServiceCard, TermCard } from "@/components/content/Cards";
 import JsonLd from "@/components/seo/JsonLd";
-import { getCases, getPosts, getService, getServices } from "@/lib/content";
+import { demandRank, getCases, getPosts, getService, getServices, getTerms } from "@/lib/content";
 import { buildBreadcrumbs, buildFaq, buildService, graph } from "@/lib/seo";
 
 export const dynamicParams = false;
@@ -37,6 +37,11 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
     .filter((c) => c.services.includes(s.slug))
     .slice(0, 3);
   const posts = getPosts().slice(0, 3);
+  // Fichas del glosario que remiten a este servicio (plan G-13)
+  const terms = getTerms()
+    .filter((t) => t.service === s.slug)
+    .sort((a, b) => demandRank(a.slug) - demandRank(b.slug))
+    .slice(0, 6);
   const crumbs = [
     { name: "Servicios", path: "/servicios" },
     { name: s.title, path: `/servicios/${s.slug}` },
@@ -81,6 +86,19 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
           />
         </aside>
       </div>
+
+      {terms.length > 0 && (
+        <section className="mx-auto max-w-[1400px] px-4 pb-16 md:px-8" aria-labelledby="conceptos">
+          <h2 id="conceptos" className="mb-6 font-display text-3xl text-ink">
+            Conceptos clave
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {terms.map((t) => (
+              <TermCard key={t.slug} t={t} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {cases.length > 0 && (
         <section className="mx-auto max-w-[1400px] px-4 pb-16 md:px-8" aria-labelledby="casos-rel">

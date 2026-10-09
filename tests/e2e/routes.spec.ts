@@ -14,6 +14,8 @@ const routes = [
   "/glosario",
   "/glosario/jefe-de-prensa",
   "/glosario/vocero",
+  "/glosario/rueda-de-prensa",
+  "/servicios/jefatura-de-prensa",
   "/prensa",
   "/contacto",
 ];
@@ -66,6 +68,8 @@ test.describe("rutas de contenido", () => {
       "/servicios/jefatura-de-prensa",
       "/casos/concejo-de-cali",
       "/glosario/vocero",
+  "/glosario/rueda-de-prensa",
+  "/servicios/jefatura-de-prensa",
       "/prensa",
       "/contacto",
     ]) {

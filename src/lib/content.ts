@@ -3,7 +3,7 @@ import { join } from "node:path";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import { z } from "zod";
-import { site } from "@/content/site";
+import { glossaryByDemand, site } from "@/content/site";
 
 /**
  * Índice de contenido: única fuente para rutas, sitemap, RSS, enlaces
@@ -172,6 +172,12 @@ export function getTerms(): TermMeta[] {
 }
 export function getTerm(slug: string): TermMeta | undefined {
   return getTerms().find((t) => t.slug === slug);
+}
+
+/** Rango de demanda de un término (posición en glossaryByDemand; los demás al final). */
+export function demandRank(slug: string): number {
+  const i = (glossaryByDemand as readonly string[]).indexOf(slug);
+  return i === -1 ? Number.MAX_SAFE_INTEGER : i;
 }
 
 export type Heading = { id: string; text: string };
