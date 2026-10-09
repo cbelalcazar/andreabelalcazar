@@ -13,6 +13,7 @@ const routes = [
   "/blog",
   "/glosario",
   "/glosario/jefe-de-prensa",
+  "/glosario/vocero",
   "/prensa",
   "/contacto",
 ];
@@ -82,4 +83,19 @@ test.describe("rutas de contenido", () => {
     await page.goto("/");
     await expect(page.locator('meta[name="google-site-verification"]')).toHaveAttribute("content", /.{20,}/);
   });
+});
+
+test("ficha ampliada del glosario: respuesta, índice, FAQPage y enlaces a guía y servicio", async ({ page }) => {
+  await page.goto("/glosario/vocero");
+  await expect(page).toHaveTitle(/^Vocero: qué es/);
+  await expect(page.getByText("En pocas palabras")).toBeVisible();
+  const toc = page.getByRole("navigation", { name: "En esta página" });
+  for (const href of await toc.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")))) {
+    await expect(page.locator(`[id="${href!.slice(1)}"]`)).toHaveCount(1);
+  }
+  const ld = (await page.locator('script[type="application/ld+json"]').allTextContents()).join("");
+  expect(ld).toContain('"@type":"FAQPage"');
+  expect(ld).toContain('"alternateName"');
+  await expect(page.locator('a[data-track="glossary_guide_click"]')).toHaveCount(1);
+  await expect(page.locator('a[data-track="glossary_service_click"]')).toHaveCount(1);
 });

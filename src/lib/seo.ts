@@ -9,6 +9,7 @@ import type {
   PersonLeaf,
   ProfilePage,
   Service,
+  WebPage,
   WebSiteLeaf,
 } from "schema-dts";
 import { education, services, site } from "@/content/site";
@@ -142,14 +143,45 @@ export function buildArticle(p: {
   };
 }
 
-export function buildDefinedTerm(t: { slug: string; term: string; short: string }): DefinedTerm {
+export function buildDefinedTerm(t: {
+  slug: string;
+  term: string;
+  short: string;
+  answer?: string;
+  aka?: string[];
+}): DefinedTerm {
   return {
     "@type": "DefinedTerm",
     "@id": `${site.url}/glosario/${t.slug}#term`,
     name: t.term,
-    description: t.short,
+    description: t.answer ?? t.short,
+    ...(t.aka?.length ? { alternateName: t.aka } : {}),
     url: `${site.url}/glosario/${t.slug}`,
     inDefinedTermSet: `${site.url}/glosario#set`,
+  };
+}
+
+/** WebPage de una ficha del glosario: fecha, autoría y revisión (plan G-03). */
+export function buildTermPage(t: {
+  slug: string;
+  seoTitle?: string;
+  term: string;
+  updated?: string;
+  reviewed: boolean;
+  sources: { label: string; url: string }[];
+}): WebPage {
+  const url = `${site.url}/glosario/${t.slug}`;
+  return {
+    "@type": "WebPage",
+    "@id": `${url}#page`,
+    url,
+    name: t.seoTitle ?? t.term,
+    inLanguage: site.locale,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": `${url}#term` },
+    ...(t.updated ? { dateModified: t.updated } : {}),
+    ...(t.reviewed ? { author: { "@id": PERSON_ID }, reviewedBy: { "@id": PERSON_ID } } : {}),
+    ...(t.sources.length ? { citation: t.sources.map((s) => s.url) } : {}),
   };
 }
 

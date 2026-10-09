@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import matter from "gray-matter";
+import GithubSlugger from "github-slugger";
 import { z } from "zod";
 import { site } from "@/content/site";
 
@@ -68,6 +69,26 @@ export const TermSchema = z.object({
   term: z.string().min(2).max(60),
   short: z.string().min(60).max(170),
   related: z.array(z.string().regex(slugRe)).default([]),
+  /** Título para Google sin el sufijo de marca (plan G-01). Si falta, se usa la plantilla por defecto. */
+  seoTitle: z.string().min(20).max(60).optional(),
+  /** Meta description que invita al clic; no debe repetir `short`. */
+  seoDescription: z.string().min(120).max(160).optional(),
+  /** Respuesta directa (40–70 palabras) que se pinta arriba del artículo. */
+  answer: z.string().min(150).max(480).optional(),
+  /** Otras formas en que se busca el término: grafías, femenino, sinónimos. */
+  aka: z.array(z.string()).max(10).default([]),
+  faq: z.array(Faq).max(8).default([]),
+  /** Post del blog que desarrolla el "cómo". */
+  guide: z.string().regex(slugRe).optional(),
+  /** Servicio al que lleva el CTA contextual. */
+  service: z.string().regex(slugRe).optional(),
+  sources: z
+    .array(z.object({ label: z.string().min(5), url: z.string().url() }))
+    .max(8)
+    .default([]),
+  updated: z.string().regex(dateRe).optional(),
+  /** Revisión editorial de Andrea: solo entonces se muestra "Revisado por". */
+  reviewed: z.boolean().default(false),
 });
 export type TermMeta = z.infer<typeof TermSchema> & { slug: string };
 
@@ -153,6 +174,31 @@ export function getTerm(slug: string): TermMeta | undefined {
   return getTerms().find((t) => t.slug === slug);
 }
 
+export type Heading = { id: string; text: string };
+
+/**
+ * H2 del cuerpo de una ficha, con el mismo id que genera rehype-slug
+ * (ambos usan github-slugger), para el índice de la página.
+ */
+export function getTermHeadings(slug: string): Heading[] {
+  const term = readAll("glosario", TermSchema).find((t) => t.slug === slug);
+  if (!term) return [];
+  const slugger = new GithubSlugger();
+  const headings: Heading[] = [];
+  for (const line of term.body.split("\n")) {
+    const m = /^(#{1,6})\s+(.+?)\s*$/.exec(line);
+    if (!m) continue;
+    const text = m[2].replace(/[*_`]/g, "");
+    const id = slugger.slug(text);
+    if (m[1].length === 2) headings.push({ id, text });
+  }
+  return headings;
+}
+
+function newestTerm(): string {
+  return getTerms().reduce((max, t) => (t.updated && t.updated > max ? t.updated : max), "2026-09-12");
+}
+
 export type RouteEntry = {
   path: string;
   lastModified: Date;
@@ -173,7 +219,7 @@ export function getAllRoutes(): RouteEntry[] {
     { path: "/prensa", lastModified: d("2026-09-12"), priority: 0.8, changeFrequency: "monthly" },
     { path: "/contacto", lastModified: d("2026-09-12"), priority: 0.8, changeFrequency: "yearly" },
     { path: "/blog", lastModified: d(newest), priority: 0.8, changeFrequency: "weekly" },
-    { path: "/glosario", lastModified: d("2026-09-12"), priority: 0.6, changeFrequency: "monthly" },
+    { path: "/glosario", lastModified: d(newestTerm()), priority: 0.6, changeFrequency: "monthly" },
     { path: "/privacidad", lastModified: d("2026-09-12"), priority: 0.2, changeFrequency: "yearly" },
   ];
   for (const s of getServices())
@@ -197,9 +243,9 @@ export function getAllRoutes(): RouteEntry[] {
   for (const t of getTerms())
     routes.push({
       path: `/glosario/${t.slug}`,
-      lastModified: d("2026-09-12"),
-      priority: 0.4,
-      changeFrequency: "yearly",
+      lastModified: d(t.updated ?? "2026-09-12"),
+      priority: 0.5,
+      changeFrequency: "monthly",
     });
   return routes;
 }

@@ -31,7 +31,13 @@ const components: MDXComponents = {
       <input {...props} />
     ),
   table: (props) => (
-    <div className="not-prose my-6 overflow-x-auto rounded-xl border border-line">
+    // Región enfocable: en móvil la tabla se desplaza en horizontal y debe poder recorrerse con teclado (axe)
+    <div
+      role="region"
+      aria-label="Tabla (desplazable en horizontal)"
+      tabIndex={0}
+      className="not-prose my-6 overflow-x-auto rounded-xl border border-line focus-visible:outline-2 focus-visible:outline-accent"
+    >
       <table className="w-full min-w-[480px] border-collapse text-sm" {...props} />
     </div>
   ),

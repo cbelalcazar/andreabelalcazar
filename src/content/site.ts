@@ -118,6 +118,29 @@ export const services: readonly Service[] = [
   },
 ] as const;
 
+/**
+ * CTA contextual de las fichas del glosario según el servicio relacionado
+ * (plan G-12). Solo describe servicios ya publicados en /servicios.
+ */
+export const serviceCta: Record<string, { title: string; text: string }> = {
+  "jefatura-de-prensa": {
+    title: "¿Tu equipo necesita voceros preparados?",
+    text: "Estrategia de prensa, mensajes clave y preparación de voceros para entidades y organizaciones.",
+  },
+  "gestion-de-crisis": {
+    title: "¿Estás frente a una crisis?",
+    text: "Protocolos de respuesta, vocería bajo presión y monitoreo de medios y redes.",
+  },
+  "marketing-politico-digital": {
+    title: "¿Preparas una campaña?",
+    text: "Discurso, mensajes clave, pauta digital y contenidos con una sola estrategia.",
+  },
+  "comunicacion-institucional": {
+    title: "¿Tu institución necesita una narrativa clara?",
+    text: "Objetivos institucionales convertidos en mensajes claros para ciudadanía, gremios y aliados.",
+  },
+};
+
 export type Role = {
   org: string;
   title: string;

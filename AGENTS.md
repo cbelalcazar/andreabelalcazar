@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # Reglas de este proyecto
 
-Contexto completo, hallazgos y roadmap: `AUDITORIA-2026-09.md` (IDs tipo S-01, P-03…). Referenciar el ID en commits y PRs.
+Contexto completo, hallazgos y roadmap: `AUDITORIA-2026-09.md` (IDs tipo S-01, P-03…). Plan de crecimiento vigente: `PLAN-CRECIMIENTO-2026-10.md` (IDs G-xx). Referenciar el ID en commits y PRs.
 
 ## Next 16 (lo que cambia respecto a 13/14)
 - `next/image`: **no usar `priority`** (deprecado). Usar `loading="eager"` + `fetchPriority="high"` para la imagen LCP y siempre `sizes` con `fill`. `quality` debe estar en `images.qualities`.

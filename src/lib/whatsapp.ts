@@ -1,7 +1,17 @@
 import { site } from "@/content/site";
 
 export type WhatsAppPlacement =
-  "nav" | "hero" | "services" | "trajectory" | "footer-cta" | "footer" | "float" | "not-found" | "mobile-menu";
+  | "nav"
+  | "hero"
+  | "services"
+  | "trajectory"
+  | "footer-cta"
+  | "footer"
+  | "float"
+  | "not-found"
+  | "mobile-menu"
+  | "glossary"
+  | "blog";
 
 /**
  * Construye el enlace wa.me con texto prellenado. El propio mensaje sirve

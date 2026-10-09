@@ -107,7 +107,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             </p>
           </div>
           <ContactBlock
-            placement="services"
+            placement="blog"
             topic={`blog:${p.slug}`}
             title="¿Quieres aplicar esto en tu entidad?"
             text="Escríbeme y lo aterrizamos a tu caso."
