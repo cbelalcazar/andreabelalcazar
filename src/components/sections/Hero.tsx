@@ -28,7 +28,7 @@ export default function Hero() {
             <figcaption className="absolute bottom-5 left-6 text-white md:bottom-6 md:left-7">
               <p className="font-display text-[19px] font-semibold tracking-[-0.02em] md:text-[22px]">{site.name}</p>
               <p className="text-[13px] text-white/85 md:text-[14px]">
-                {site.jobTitle} · {site.city}, Colombia
+                {hero.role} · {site.city}, Colombia
               </p>
             </figcaption>
           </div>

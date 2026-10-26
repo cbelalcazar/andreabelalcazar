@@ -4,6 +4,120 @@
  * Los huecos se marcan con TODO(andrea) y se listan en AUDITORIA-2026-09.md §17.5.
  */
 
+/**
+ * Posicionamiento comercial (PLAN-CONSULTORIA-2026-11 §3, tarea C-10).
+ * - "institucional": comunicación estratégica y medios primero; sin oferta electoral.
+ *   Es la variante segura mientras Andrea sea funcionaria pública.
+ * - "completo": marketing político primero, como pide su brief del 2026-10-26.
+ * Cambiar a "completo" solo con la decisión A-8 resuelta (concepto legal o salida del cargo).
+ */
+export type Positioning = "institucional" | "completo";
+export const positioning: Positioning = "institucional";
+
+type ServiceSlug =
+  "jefatura-de-prensa" | "gestion-de-crisis" | "comunicacion-institucional" | "marketing-politico-digital";
+
+type Variant = {
+  title: string;
+  description: string;
+  tagline: string;
+  hero: { badge: string; lead: string };
+  /** Orden de las soluciones en portada, /servicios y footer (jerarquía del brief). */
+  order: readonly ServiceSlug[];
+  /** Solo la solución política cambia de nombre entre variantes. */
+  political: { title: string; summary: string; bullets: readonly string[]; cta: { title: string; text: string } };
+  closingLead: string;
+  knowsAbout: readonly string[];
+};
+
+const variants: Record<Positioning, Variant> = {
+  institucional: {
+    title: "Andrea Belalcázar · Comunicación estratégica y prensa · Cali",
+    description:
+      "Comunicación estratégica, posicionamiento en medios, reputación y jefatura de prensa para líderes, instituciones y marcas en Cali y el Valle del Cauca.",
+    tagline: "Comunicación estratégica y relaciones públicas",
+    hero: {
+      badge: "Comunicación estratégica · Relaciones públicas · Cali, Colombia",
+      lead: "Diseño estrategias de comunicación que fortalecen la imagen pública, posicionan a líderes e instituciones y generan presencia en los medios. Integro relaciones públicas, gestión de prensa y estrategia digital para que cada mensaje llegue a la audiencia correcta y construya credibilidad.",
+    },
+    order: ["jefatura-de-prensa", "gestion-de-crisis", "comunicacion-institucional", "marketing-politico-digital"],
+    political: {
+      title: "Comunicación política y estrategia digital",
+      summary:
+        "Narrativa, mensajes y estrategia digital para líderes y organizaciones con agenda pública: discurso, contenidos, pauta y medición con una sola estrategia.",
+      bullets: [
+        "Diagnóstico de comunicación y narrativa",
+        "Contenidos y pauta en Meta y Google",
+        "IA aplicada a comunicación",
+      ],
+      cta: {
+        title: "¿Lideras una agenda pública?",
+        text: "Narrativa, mensajes clave, contenidos y pauta digital con una sola estrategia.",
+      },
+    },
+    closingLead:
+      "Ya sea que estés construyendo una marca personal, liderando una organización o buscando más reconocimiento en los medios, una comunicación estratégica marca la diferencia.",
+    knowsAbout: [
+      "Comunicación estratégica",
+      "Posicionamiento en medios",
+      "Relaciones públicas",
+      "Jefatura de prensa",
+      "Reputación pública",
+      "Gestión de crisis",
+      "Comunicación política",
+      "Marketing digital",
+      "Inteligencia artificial aplicada a comunicación",
+    ],
+  },
+  completo: {
+    title: "Andrea Belalcázar · Marketing político y comunicación estratégica",
+    description:
+      "Consultoría en marketing político, comunicación estratégica, posicionamiento en medios, reputación pública y jefatura de prensa en Cali y el Valle del Cauca.",
+    tagline: "Marketing político y comunicación estratégica",
+    hero: {
+      badge: "Marketing político · Comunicación estratégica · Relaciones públicas",
+      lead: "Diseño estrategias de comunicación que fortalecen la imagen pública, posicionan a líderes y marcas y generan presencia en los medios. Integro marketing político, relaciones públicas, gestión de prensa y estrategia digital para que cada mensaje llegue a la audiencia correcta y construya credibilidad.",
+    },
+    order: ["marketing-politico-digital", "jefatura-de-prensa", "gestion-de-crisis", "comunicacion-institucional"],
+    political: {
+      title: "Marketing político y comunicación electoral",
+      summary:
+        "Estrategias integrales para campañas y proyectos políticos: diagnóstico, narrativa, mensajes, estrategia digital, posicionamiento de candidatos y comunicación territorial.",
+      bullets: ["Diagnóstico y narrativa de campaña", "Estrategia digital y pauta", "Comunicación territorial"],
+      cta: {
+        title: "¿Preparas una campaña?",
+        text: "Diagnóstico, narrativa, mensajes y estrategia digital coherentes en cada etapa de la campaña.",
+      },
+    },
+    closingLead:
+      "Ya sea que estés construyendo una marca personal, liderando una organización, preparando una campaña electoral o buscando más reconocimiento en los medios, una comunicación estratégica marca la diferencia.",
+    knowsAbout: [
+      "Marketing político",
+      "Comunicación electoral",
+      "Comunicación estratégica",
+      "Posicionamiento en medios",
+      "Relaciones públicas",
+      "Jefatura de prensa",
+      "Reputación pública",
+      "Gestión de crisis",
+      "Inteligencia artificial aplicada a comunicación",
+    ],
+  },
+};
+
+const variant = variants[positioning];
+
+/** Para tests: las dos variantes deben cumplir las reglas de redacción (C-17). */
+export const allVariants = variants;
+
+/** Nombres de sección del brief. Las URL no cambian (plan §2: etiquetas sí, URL no). */
+export const labels = {
+  services: "Soluciones",
+  cases: "Proyectos",
+  blog: "Perspectivas",
+  glossary: "Glosario",
+} as const;
+
 export const site = {
   name: "Andrea Belalcázar",
   legalName: "Yuly Andrea Belalcázar",
@@ -19,10 +133,10 @@ export const site = {
     name: "Secretaría de Turismo del Valle del Cauca",
     url: "https://www.valledelcauca.gov.co/turismo",
   },
-  tagline: "Estrategia de prensa y comunicación política",
-  title: "Andrea Belalcázar · Estrategia de prensa y comunicación política",
-  description:
-    "Jefe de prensa y estratega de comunicación con experiencia en gobierno, campañas electorales y empresa en el Valle del Cauca. Relación con medios, narrativa institucional y gestión de crisis.",
+  tagline: variant.tagline,
+  title: variant.title,
+  description: variant.description,
+  knowsAbout: variant.knowsAbout,
   whatsapp: {
     /** Número en formato internacional sin "+". No cambiar sin confirmación. */
     phone: "573105354473",
@@ -37,21 +151,29 @@ export const site = {
    * por eso este arreglo está vacío hasta confirmar las URLs reales.
    */
   sameAs: [] as string[],
+  /** Menú del brief (Inicio · Soluciones · Proyectos · Perspectivas · Contacto) + Glosario, que trae el tráfico. */
   nav: [
-    { href: "/servicios", label: "Servicios" },
-    { href: "/casos", label: "Casos" },
-    { href: "/blog", label: "Blog" },
-    { href: "/sobre-mi", label: "Sobre mí" },
+    { href: "/servicios", label: labels.services },
+    { href: "/casos", label: labels.cases },
+    { href: "/glosario", label: labels.glossary },
+    { href: "/blog", label: labels.blog },
     { href: "/contacto", label: "Contacto" },
   ],
 } as const;
 
+/**
+ * Voz en primera persona del singular: el brief pide «diseñamos» solo si hay
+ * equipo detrás. TODO(andrea): decisión A-9 (¿equipo o red colaboradora?).
+ * Titular T1 del brief. TODO(andrea): decisión A-10 (T1, T2 o T3, plan §4.1).
+ */
 export const hero = {
-  badge: "Comunicación política e institucional · Cali, Colombia",
-  h1: "Estrategia de prensa y narrativa para gobiernos, campañas y marcas del suroccidente colombiano.",
-  lead: "Soy Andrea Belalcázar. He liderado la comunicación de una secretaría departamental, un concejo municipal, una campaña presidencial en el Valle y una campaña a la Alcaldía de Cali. Ayudo a instituciones y líderes a decir lo correcto, a tiempo y en el medio correcto.",
-  ctaPrimary: "Hablemos por WhatsApp",
-  ctaSecondary: "Ver casos",
+  badge: variant.hero.badge,
+  h1: "La reputación se construye. El posicionamiento se planifica.",
+  lead: variant.hero.lead,
+  ctaPrimary: "Hablemos de tu estrategia",
+  ctaSecondary: "Ver proyectos",
+  /** Pie del retrato: oficio, no cargo (el cargo está en /sobre-mi). */
+  role: "Estratega de comunicación y relaciones públicas",
   proof: [
     "Secretaría de Turismo del Valle del Cauca",
     "Concejo de Cali",
@@ -60,63 +182,75 @@ export const hero = {
   ],
 } as const;
 
-export const philosophy = {
-  eyebrow: "Enfoque",
-  title: "Claridad antes que ruido.",
-  quote:
-    "La comunicación política moderna no acepta errores. O construyes tu narrativa, o dejas que otros la definan por ti.",
+/** Propuesta de valor del brief (sección 2), adaptada a primera persona. */
+export const valueProp = {
+  eyebrow: "Propuesta de valor",
+  title: "Que tu historia tenga relevancia pública.",
+  quote: "No se trata solo de aparecer en los medios. Se trata de construir una reputación que abra oportunidades.",
   paragraphs: [
-    "Soy profesional en Mercadeo con especialización en Gerencia de Marketing Estratégico. Trabajo en prensa, relaciones públicas, comunicación institucional, marketing político, narrativa pública, medios y estrategia digital.",
-    "Integro visión estratégica, capacidad operativa e inteligencia artificial aplicada para potenciar posicionamiento, reputación y resultados. Hoy lidero la estrategia de prensa y el relacionamiento con medios de la Secretaría de Turismo del Valle del Cauca.",
+    "Estar en los medios no es simplemente aparecer en televisión, radio o prensa. Es saber qué comunicar, cuándo hacerlo, dónde tener presencia y cómo convertir esa visibilidad en reconocimiento y reputación.",
+    "Con una estrategia de relaciones públicas y posicionamiento en medios identifico oportunidades para proyectar tu experiencia, fortalecer tu liderazgo y construir una imagen pública sólida. Porque no basta con que te vean: importa cómo te perciben y por qué te recuerdan.",
   ],
 } as const;
 
 export type Service = {
-  id: string;
+  id: ServiceSlug;
   icon: "mic" | "shield" | "target" | "briefcase";
   title: string;
   summary: string;
   bullets: readonly string[];
 };
 
-export const services: readonly Service[] = [
-  {
+const serviceById: Record<ServiceSlug, Service> = {
+  "jefatura-de-prensa": {
     id: "jefatura-de-prensa",
     icon: "mic",
-    title: "Jefatura de prensa y relación con medios",
+    title: "Posicionamiento en medios y jefatura de prensa",
     summary:
-      "Estrategia de prensa, mensajes clave, comunicados, agendas mediáticas y cubrimientos para fortalecer el posicionamiento institucional.",
+      "Convierto tu conocimiento, trayectoria y propuestas en oportunidades de visibilidad: estrategia de prensa, relación con periodistas, entrevistas y agenda mediática.",
     bullets: [
-      "Comunicados y ruedas de prensa",
-      "Agenda mediática y vocería",
-      "Relacionamiento con medios nacionales y locales",
+      "Estrategia de prensa y agenda mediática",
+      "Relación con periodistas y gestión de entrevistas",
+      "Comunicados, contenidos noticiosos y ruedas de prensa",
     ],
   },
-  {
+  "gestion-de-crisis": {
     id: "gestion-de-crisis",
     icon: "shield",
-    title: "Gestión de crisis y reputación",
+    title: "Reputación y gestión de crisis",
     summary:
-      "Lectura de coyuntura, manejo de coyunturas comunicacionales y protección de la reputación institucional bajo presión.",
-    bullets: ["Protocolos de respuesta", "Vocería en escenarios de alta exposición", "Monitoreo digital y de medios"],
+      "Marca personal y reputación pública para líderes, directivos e instituciones, y una respuesta ordenada cuando la reputación está en juego.",
+    bullets: [
+      "Mensajes y atributos de posicionamiento",
+      "Protocolos de crisis y vocería bajo presión",
+      "Monitoreo de medios y redes",
+    ],
   },
-  {
-    id: "marketing-politico-digital",
-    icon: "target",
-    title: "Marketing político y estrategia digital",
-    summary:
-      "Diseño y ejecución de estrategias integrales de comunicación y marketing político: discurso, mensajes clave, pauta y contenidos.",
-    bullets: ["Meta Ads y Google Ads", "Email marketing y automatización", "IA aplicada a comunicación"],
-  },
-  {
+  "comunicacion-institucional": {
     id: "comunicacion-institucional",
     icon: "briefcase",
     title: "Comunicación institucional y asuntos públicos",
     summary:
-      "Traducción de objetivos institucionales en mensajes claros, visibles y estratégicos para ciudadanía, gremios y aliados.",
-    bullets: ["Narrativa institucional", "Campañas ciudadanas", "Redacción estratégica"],
+      "Planes de prensa, posicionamiento de voceros, comunicación de gestión y manejo de coyunturas para entidades, gremios y organizaciones.",
+    bullets: ["Narrativa institucional y comunicación de gestión", "Posicionamiento de voceros", "Campañas ciudadanas"],
   },
-] as const;
+  "marketing-politico-digital": {
+    id: "marketing-politico-digital",
+    icon: "target",
+    title: variant.political.title,
+    summary: variant.political.summary,
+    bullets: variant.political.bullets,
+  },
+};
+
+/** Soluciones en el orden de la variante activa. */
+export const services: readonly Service[] = variant.order.map((id) => serviceById[id]);
+
+/** Posición y nombre de cada solución; `getServices()` los aplica sobre el MDX. */
+export function solutionFor(slug: string): { title: string; order: number } | undefined {
+  const i = variant.order.indexOf(slug as ServiceSlug);
+  return i === -1 ? undefined : { title: serviceById[slug as ServiceSlug].title, order: i + 1 };
+}
 
 /**
  * CTA contextual de las fichas del glosario según el servicio relacionado
@@ -124,22 +258,44 @@ export const services: readonly Service[] = [
  */
 export const serviceCta: Record<string, { title: string; text: string }> = {
   "jefatura-de-prensa": {
-    title: "¿Tu equipo necesita voceros preparados?",
-    text: "Estrategia de prensa, mensajes clave y preparación de voceros para entidades y organizaciones.",
+    title: "¿Necesitas presencia en los medios?",
+    text: "Estrategia de prensa, relación con periodistas y preparación de voceros para líderes y organizaciones.",
   },
   "gestion-de-crisis": {
     title: "¿Estás frente a una crisis?",
     text: "Protocolos de respuesta, vocería bajo presión y monitoreo de medios y redes.",
   },
-  "marketing-politico-digital": {
-    title: "¿Preparas una campaña?",
-    text: "Discurso, mensajes clave, pauta digital y contenidos con una sola estrategia.",
-  },
+  "marketing-politico-digital": variant.political.cta,
   "comunicacion-institucional": {
     title: "¿Tu institución necesita una narrativa clara?",
     text: "Objetivos institucionales convertidos en mensajes claros para ciudadanía, gremios y aliados.",
   },
 };
+
+/** Metodología del brief (sección 4): lo que se entrega y se mide en cada paso. */
+export const methodology = {
+  eyebrow: "Metodología",
+  title: "Diagnosticar. Diseñar. Posicionar. Medir.",
+  lead: "Analizo el contexto, identifico los objetivos y desarrollo estrategias que integran medios tradicionales, plataformas digitales y comunicación directa.",
+  steps: [
+    {
+      name: "Diagnosticar",
+      text: "Contexto, percepción actual y presencia en medios y redes. Objetivos y audiencias definidos por escrito.",
+    },
+    {
+      name: "Diseñar",
+      text: "Narrativa, mensajes clave, vocería, canales y calendario: una estrategia que todo el equipo puede seguir.",
+    },
+    {
+      name: "Posicionar",
+      text: "Ejecución en medios, plataformas digitales y comunicación directa, con relación permanente con periodistas.",
+    },
+    {
+      name: "Medir",
+      text: "Alcance, presencia en medios, consistencia del mensaje y percepción pública para ajustar cada acción.",
+    },
+  ],
+} as const;
 
 /**
  * Fichas del glosario ordenadas por impresiones en Search Console
@@ -269,10 +425,11 @@ export const tools = [
   "Monitoreo digital y contenidos",
 ] as const;
 
+/** Cierre comercial del brief (sección 5). */
 export const contact = {
-  title: "¿Necesitas a alguien que hable con los medios por ti?",
-  lead: "Cuéntame tu situación en un mensaje. Respondo personalmente.",
-  cta: "Hablemos por WhatsApp",
+  title: "Tu imagen pública también necesita una estrategia.",
+  lead: variant.closingLead,
+  cta: "Solicita una consultoría estratégica",
 } as const;
 
 /** Periodos con TODO no se muestran en la UI; sirven de recordatorio. */

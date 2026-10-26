@@ -6,6 +6,7 @@ import Faq from "@/components/content/Faq";
 import ContactBlock from "@/components/content/ContactBlock";
 import { CaseCard, PostCard, ServiceCard, TermCard } from "@/components/content/Cards";
 import JsonLd from "@/components/seo/JsonLd";
+import { labels } from "@/content/site";
 import { demandRank, getCases, getPosts, getService, getServices, getTerms } from "@/lib/content";
 import { buildBreadcrumbs, buildFaq, buildService, graph } from "@/lib/seo";
 
@@ -43,7 +44,7 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
     .sort((a, b) => demandRank(a.slug) - demandRank(b.slug))
     .slice(0, 6);
   const crumbs = [
-    { name: "Servicios", path: "/servicios" },
+    { name: labels.services, path: "/servicios" },
     { name: s.title, path: `/servicios/${s.slug}` },
   ];
 
@@ -81,7 +82,7 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
           <ContactBlock
             placement="services"
             topic={s.slug}
-            title="Consultar este servicio"
+            title="Consultar esta solución"
             text="Cuéntame qué necesitas y en qué plazo. Te respondo con una propuesta de trabajo."
           />
         </aside>
@@ -116,7 +117,7 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
       {related.length > 0 && (
         <section className="mx-auto max-w-[1400px] px-4 pb-16 md:px-8" aria-labelledby="serv-rel">
           <h2 id="serv-rel" className="mb-6 font-display text-3xl text-ink">
-            Servicios que se complementan
+            Soluciones que se complementan
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
             {related.map((r) => (
@@ -133,7 +134,7 @@ export default async function ServicioPage({ params }: PageProps<"/servicios/[sl
               Artículos recientes
             </h2>
             <Link href="/blog" className="text-sm font-semibold text-accent hover:text-ink">
-              Ver el blog →
+              Ver todas las perspectivas →
             </Link>
           </div>
           <div className="grid gap-4 md:grid-cols-3">

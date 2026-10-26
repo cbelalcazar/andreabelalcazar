@@ -1,4 +1,5 @@
-import { contact, site } from "@/content/site";
+import Link from "next/link";
+import { contact } from "@/content/site";
 import WhatsAppLink from "@/components/analytics/WhatsAppLink";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
@@ -10,7 +11,7 @@ export default function ContactCTA() {
       aria-labelledby="contacto-title"
     >
       <div className="reveal mx-auto max-w-[1024px] text-center">
-        <p className="eyebrow">Contacto</p>
+        <p className="eyebrow">Consultoría</p>
         <h2 id="contacto-title" className="display-xl mx-auto mt-4 max-w-[16ch] text-balance">
           {contact.title}
         </h2>
@@ -20,9 +21,9 @@ export default function ContactCTA() {
             <WhatsAppIcon className="h-5 w-5" />
             {contact.cta}
           </WhatsAppLink>
-          <a href={`mailto:${site.email}`} className="btn-pill-ghost">
-            Escribir un correo
-          </a>
+          <Link href="/contacto" className="btn-pill-ghost">
+            Usar el formulario
+          </Link>
         </div>
       </div>
     </section>

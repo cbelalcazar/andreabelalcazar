@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   publisher: site.name,
-  category: "Comunicación política",
+  category: "Comunicación estratégica",
   alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
   verification: { google: "gIM0v2i00yNmjc_jssnPoK93URB4449vWmz1DxKs25E" },
   formatDetection: { telephone: false, address: false, email: false },

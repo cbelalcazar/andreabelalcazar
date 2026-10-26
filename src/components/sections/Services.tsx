@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Briefcase, Mic, Shield, Target } from "lucide-react";
-import { services } from "@/content/site";
+import { labels, services } from "@/content/site";
 import WhatsAppLink from "@/components/analytics/WhatsAppLink";
 
 const icons = { mic: Mic, shield: Shield, target: Target, briefcase: Briefcase } as const;
@@ -10,13 +10,13 @@ export default function Services() {
     <section id="servicios" className="bg-ground px-4 py-24 md:px-6 md:py-36" aria-labelledby="servicios-title">
       <div className="mx-auto max-w-[1024px]">
         <div className="reveal text-center">
-          <p className="eyebrow">Servicios</p>
+          <p className="eyebrow">{labels.services}</p>
           <h2 id="servicios-title" className="display-lg mx-auto mt-4 max-w-[18ch] text-balance">
             Qué hago y para quién.
           </h2>
           <p className="lead-xl mx-auto mt-6 max-w-[52ch] text-balance">
-            Comunicación política e institucional para gobiernos, campañas y marcas. Cada servicio termina en una
-            conversación directa.
+            Para líderes, instituciones y marcas que necesitan comunicar con estrategia. Cada solución empieza con un
+            diagnóstico y termina en una conversación directa.
           </p>
         </div>
 
@@ -43,7 +43,7 @@ export default function Services() {
                 </ul>
                 <div className="mt-8 flex flex-wrap items-center gap-x-6">
                   <Link href={`/servicios/${s.id}`} className="link-chevron">
-                    Ver servicio
+                    Ver solución
                   </Link>
                   <WhatsAppLink placement="services" topic={s.id} className="link-chevron">
                     Consultar

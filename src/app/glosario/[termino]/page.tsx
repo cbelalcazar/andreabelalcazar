@@ -156,9 +156,9 @@ export default async function TerminoPage({ params }: PageProps<"/glosario/[term
               data-topic={`${t.slug}→${service.slug}`}
               className="flex flex-col rounded-[20px] border border-line p-5 transition-transform hover:-translate-y-0.5 motion-reduce:transition-none"
             >
-              <span className="eyebrow">Servicio relacionado</span>
+              <span className="eyebrow">Solución relacionada</span>
               <span className="mt-1 font-display text-[18px] font-semibold text-ink">{service.title}</span>
-              <span className="link-chevron mt-3 text-[15px]">Ver servicio</span>
+              <span className="link-chevron mt-3 text-[15px]">Ver solución</span>
             </Link>
           ) : null}
           <ContactBlock

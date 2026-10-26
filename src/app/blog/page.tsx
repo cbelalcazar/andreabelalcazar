@@ -3,15 +3,16 @@ import Link from "next/link";
 import PageHeader from "@/components/content/PageHeader";
 import { PostCard } from "@/components/content/Cards";
 import JsonLd from "@/components/seo/JsonLd";
+import { labels } from "@/content/site";
 import { getPosts, getTemasConPosts, TEMAS } from "@/lib/content";
 import { buildBreadcrumbs, buildCollection, graph } from "@/lib/seo";
 
-const title = "Blog: comunicación política, prensa y gestión de crisis";
+const title = "Perspectivas: comunicación pública, prensa y gestión de crisis";
 const description =
   "Guías prácticas sobre jefatura de prensa, comunicación política e institucional, gestión de crisis, pauta digital e inteligencia artificial aplicada, escritas desde el trabajo en el sector público colombiano.";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: labels.blog,
   description,
   alternates: { canonical: "/blog", types: { "application/rss+xml": "/rss.xml" } },
   openGraph: { title, description, url: "/blog", type: "website" },
@@ -20,12 +21,12 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   const posts = getPosts();
   const temas = getTemasConPosts();
-  const crumbs = [{ name: "Blog", path: "/blog" }];
+  const crumbs = [{ name: labels.blog, path: "/blog" }];
   return (
     <main id="contenido">
       <JsonLd data={graph(buildCollection({ path: "/blog", name: title, description }), buildBreadcrumbs(crumbs))} />
       <PageHeader
-        eyebrow="Blog"
+        eyebrow={labels.blog}
         title="Lo que aprendí haciendo prensa y comunicación pública"
         lead={description}
         crumbs={crumbs}

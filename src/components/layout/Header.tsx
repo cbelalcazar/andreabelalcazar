@@ -16,16 +16,18 @@ export default function Header() {
 
         <nav aria-label="Principal" className="hidden md:block">
           <ul className="flex items-center gap-8 text-[13px] font-medium text-[#1d1d1f]/85">
-            {site.nav.slice(0, 4).map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {site.nav
+              .filter((item) => item.href !== "/contacto")
+              .map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             <li>
               <Link
                 href="/contacto"

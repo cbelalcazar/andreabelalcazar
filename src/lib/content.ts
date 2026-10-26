@@ -3,7 +3,7 @@ import { join } from "node:path";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import { z } from "zod";
-import { glossaryByDemand, site } from "@/content/site";
+import { glossaryByDemand, site, solutionFor } from "@/content/site";
 
 /**
  * Índice de contenido: única fuente para rutas, sitemap, RSS, enlaces
@@ -148,9 +148,13 @@ export function getTemasConPosts(): Tema[] {
 }
 
 export function getServices(): ServiceMeta[] {
-  return readAll("servicios", ServiceSchema)
-    .map((s) => omitBody(s))
-    .sort((a, b) => a.order - b.order);
+  return (
+    readAll("servicios", ServiceSchema)
+      .map((s) => omitBody(s))
+      // Nombre y orden de la variante de posicionamiento activa (plan C-10)
+      .map((s) => ({ ...s, ...solutionFor(s.slug) }))
+      .sort((a, b) => a.order - b.order)
+  );
 }
 export function getService(slug: string): ServiceMeta | undefined {
   return getServices().find((s) => s.slug === slug);

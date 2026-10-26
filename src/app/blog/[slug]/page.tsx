@@ -7,7 +7,7 @@ import ContactBlock from "@/components/content/ContactBlock";
 import { PostCard, formatDate } from "@/components/content/Cards";
 import ShareBar from "@/components/content/ShareBar";
 import JsonLd from "@/components/seo/JsonLd";
-import { site } from "@/content/site";
+import { labels, site } from "@/content/site";
 import { getPost, getPosts, TEMAS } from "@/lib/content";
 import { buildArticle, buildBreadcrumbs, buildFaq, graph } from "@/lib/seo";
 
@@ -49,7 +49,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
     .sort((a, b) => Number(b.tema === p.tema) - Number(a.tema === p.tema))
     .slice(0, 3);
   const crumbs = [
-    { name: "Blog", path: "/blog" },
+    { name: labels.blog, path: "/blog" },
     { name: TEMAS[p.tema], path: `/blog/tema/${p.tema}` },
     { name: p.title, path: `/blog/${p.slug}` },
   ];

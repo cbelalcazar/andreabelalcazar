@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import PageHeader from "@/components/content/PageHeader";
 import ContactBlock from "@/components/content/ContactBlock";
 import { CaseCard, ServiceCard } from "@/components/content/Cards";
+import { labels } from "@/content/site";
 import JsonLd from "@/components/seo/JsonLd";
 import { getCase, getCases, getServices } from "@/lib/content";
 import { buildBreadcrumbs, graph } from "@/lib/seo";
@@ -37,7 +38,7 @@ export default async function CasoPage({ params }: PageProps<"/casos/[slug]">) {
     .filter((x) => x.slug !== c.slug)
     .slice(0, 3);
   const crumbs = [
-    { name: "Casos", path: "/casos" },
+    { name: labels.cases, path: "/casos" },
     { name: c.entity, path: `/casos/${c.slug}` },
   ];
 
@@ -67,7 +68,7 @@ export default async function CasoPage({ params }: PageProps<"/casos/[slug]">) {
         <aside className="min-w-0 space-y-6 lg:col-span-5">
           {services.length > 0 && (
             <div>
-              <p className="eyebrow mb-3">Servicios aplicados</p>
+              <p className="eyebrow mb-3">Soluciones aplicadas</p>
               <div className="grid gap-4">
                 {services.map((s) => (
                   <ServiceCard key={s.slug} s={s} />

@@ -28,7 +28,7 @@ export function ServiceCard({ s }: { s: ServiceMeta }) {
         {s.title}
       </h3>
       <p className="mt-3 text-[15px] leading-[1.55] text-muted">{s.description}</p>
-      <span className="link-chevron mt-5 text-[15px]">Ver servicio</span>
+      <span className="link-chevron mt-5 text-[15px]">Ver solución</span>
     </Link>
   );
 }

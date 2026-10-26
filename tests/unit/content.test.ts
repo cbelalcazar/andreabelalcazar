@@ -21,11 +21,11 @@ describe("contenido verificado", () => {
     expect(education).toHaveLength(3);
   });
 
-  it("hay 4 servicios con id único", () => {
+  it("hay 4 soluciones con id único", () => {
     expect(new Set(services.map((s) => s.id)).size).toBe(4);
   });
 
-  it("la navegación apunta a secciones existentes", () => {
-    expect(site.nav.map((n) => n.href)).toEqual(["/servicios", "/casos", "/blog", "/sobre-mi", "/contacto"]);
+  it("la navegación conserva las URL y suma el glosario (plan C-12)", () => {
+    expect(site.nav.map((n) => n.href)).toEqual(["/servicios", "/casos", "/glosario", "/blog", "/contacto"]);
   });
 });

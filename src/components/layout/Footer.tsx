@@ -1,22 +1,17 @@
 import Link from "next/link";
-import { site } from "@/content/site";
+import { labels, services, site } from "@/content/site";
 import WhatsAppLink from "@/components/analytics/WhatsAppLink";
 
 const groups = [
   {
-    title: "Servicios",
-    links: [
-      { href: "/servicios/jefatura-de-prensa", label: "Jefatura de prensa" },
-      { href: "/servicios/gestion-de-crisis", label: "Gestión de crisis" },
-      { href: "/servicios/marketing-politico-digital", label: "Estrategia digital" },
-      { href: "/servicios/comunicacion-institucional", label: "Comunicación institucional" },
-    ],
+    title: labels.services,
+    links: services.map((s) => ({ href: `/servicios/${s.id}`, label: s.title })),
   },
   {
     title: "Conocer",
     links: [
       { href: "/sobre-mi", label: "Sobre mí" },
-      { href: "/casos", label: "Casos" },
+      { href: "/casos", label: labels.cases },
       { href: "/prensa", label: "Prensa" },
       { href: "/contacto", label: "Contacto" },
     ],
@@ -24,7 +19,7 @@ const groups = [
   {
     title: "Leer",
     links: [
-      { href: "/blog", label: "Blog" },
+      { href: "/blog", label: labels.blog },
       { href: "/blog/tema/prensa", label: "Prensa y medios" },
       { href: "/blog/tema/crisis", label: "Gestión de crisis" },
       { href: "/glosario", label: "Glosario" },

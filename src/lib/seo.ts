@@ -31,20 +31,13 @@ export function buildPerson(imageUrl: string): PersonLeaf {
     image: { "@type": "ImageObject", url: imageUrl, width: "1600", height: "2000" },
     jobTitle: site.jobTitle,
     worksFor: { "@type": "GovernmentOrganization", name: site.employer.name, url: site.employer.url },
-    hasOccupation: { "@type": "Occupation", name: "Estratega de comunicación política e institucional" },
+    hasOccupation: { "@type": "Occupation", name: "Estratega de comunicación y relaciones públicas" },
     alumniOf: [...new Map(education.map((e) => [e.school, e])).values()].map((e) => ({
       "@type": "CollegeOrUniversity",
       name: e.school,
       sameAs: e.schoolUrl,
     })),
-    knowsAbout: [
-      "Comunicación política",
-      "Jefatura de prensa",
-      "Relaciones públicas",
-      "Gestión de crisis",
-      "Marketing digital",
-      "Inteligencia artificial aplicada a comunicación",
-    ],
+    knowsAbout: [...site.knowsAbout],
     knowsLanguage: "es",
     address: {
       "@type": "PostalAddress",

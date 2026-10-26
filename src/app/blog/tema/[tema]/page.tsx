@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/content/PageHeader";
 import { PostCard } from "@/components/content/Cards";
+import { labels } from "@/content/site";
 import JsonLd from "@/components/seo/JsonLd";
 import { getPostsByTema, getTemasConPosts, TEMAS, type Tema } from "@/lib/content";
 import { buildBreadcrumbs, buildCollection, graph } from "@/lib/seo";
@@ -48,7 +49,7 @@ export default async function TemaPage({ params }: PageProps<"/blog/tema/[tema]"
   const t = tema as Tema;
   const posts = getPostsByTema(t);
   const crumbs = [
-    { name: "Blog", path: "/blog" },
+    { name: labels.blog, path: "/blog" },
     { name: TEMAS[t], path: `/blog/tema/${t}` },
   ];
   return (
