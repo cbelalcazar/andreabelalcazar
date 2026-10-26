@@ -8,7 +8,7 @@ import { allVariants, contact, hero, methodology, positioning, serviceCta, servi
  * no prometer victorias electorales, cobertura garantizada ni manipulación de la opinión pública.
  */
 const promises =
-  /garantiz|aseguramos|te aseguro|victoria|ganar(?:á|emos|as)? (?:la|las) elecci|cobertura (?:asegurada|garantizada)|manipul|resultados (?:asegurados|garantizados)/i;
+  /garantiz(?:o|amos|ada|ado|adas|ados)\b|aseguramos|te aseguro|victoria|ganar(?:á|emos|as)? (?:la|las) elecci|cobertura (?:asegurada|garantizada)|manipul|resultados (?:asegurados|garantizados)/i;
 
 const commercialMdx = ["servicios", "casos"].flatMap((dir) => {
   const base = join(process.cwd(), "src/content", dir);

@@ -67,6 +67,8 @@ const nextConfig: NextConfig = {
       { source: "/ig", destination: "/?utm_source=instagram&utm_medium=bio&utm_campaign=perfil", permanent: false },
       { source: "/li", destination: "/?utm_source=linkedin&utm_medium=bio&utm_campaign=perfil", permanent: false },
       { source: "/wa", destination: "/#contacto", permanent: false },
+      // Solución renombrada en el reposicionamiento (PLAN-CONSULTORIA-2026-11, C-13)
+      { source: "/servicios/jefatura-de-prensa", destination: "/servicios/posicionamiento-en-medios", permanent: true },
     ];
   },
 };

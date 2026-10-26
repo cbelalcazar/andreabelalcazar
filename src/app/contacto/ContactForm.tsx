@@ -1,6 +1,8 @@
 "use client"; // formulario con estado de envío (useActionState)
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
+import { services } from "@/content/site";
 import { enviarContacto, type ContactState } from "./actions";
 
 const initial: ContactState = { ok: false, message: "" };
@@ -10,6 +12,16 @@ const field =
 
 export default function ContactForm() {
   const [state, action, pending] = useActionState(enviarContacto, initial);
+
+  // Evento clave de GA4 (plan G-12/C-02); sin consentimiento gtag no existe y no se envía nada
+  useEffect(() => {
+    if (!state.sent || typeof window.gtag !== "function") return;
+    try {
+      sendGAEvent("event", "contact_form_submit", { topic: state.sent.necesidad, plazo: state.sent.plazo });
+    } catch {
+      /* GA no cargado */
+    }
+  }, [state.sent]);
 
   if (state.ok) {
     return (
@@ -63,12 +75,23 @@ export default function ContactForm() {
         <label htmlFor="necesidad" className="text-sm font-medium text-ink">
           Qué necesitas
         </label>
-        <select id="necesidad" name="necesidad" required className={field} defaultValue="prensa">
-          <option value="prensa">Jefatura de prensa y medios</option>
-          <option value="crisis">Gestión de crisis</option>
-          <option value="digital">Estrategia digital y marketing</option>
-          <option value="institucional">Comunicación institucional</option>
+        <select id="necesidad" name="necesidad" required className={field} defaultValue={services[0].id}>
+          {services.map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.title}
+            </option>
+          ))}
           <option value="otro">Otro</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="plazo" className="text-sm font-medium text-ink">
+          ¿Para cuándo?
+        </label>
+        <select id="plazo" name="plazo" required className={field} defaultValue="este-mes">
+          <option value="esta-semana">Esta semana</option>
+          <option value="este-mes">Este mes</option>
+          <option value="explorando">Estoy explorando opciones</option>
         </select>
       </div>
       <div>

@@ -8,13 +8,28 @@ const Schema = z.object({
   nombre: z.string().trim().min(2).max(80),
   organizacion: z.string().trim().max(120).optional().default(""),
   contacto: z.string().trim().min(5).max(120),
-  necesidad: z.enum(["prensa", "crisis", "digital", "institucional", "otro"]),
+  // Slugs de las soluciones (plan C-15); el orden visible lo da la variante activa
+  necesidad: z.enum([
+    "posicionamiento-en-medios",
+    "gestion-de-crisis",
+    "comunicacion-institucional",
+    "marketing-politico-digital",
+    "otro",
+  ]),
+  plazo: z.enum(["esta-semana", "este-mes", "explorando"]),
   mensaje: z.string().trim().min(20).max(2000),
   // honeypot: debe llegar vacío
   sitio_web: z.string().max(0).optional().default(""),
 });
 
-export type ContactState = { ok: boolean; message: string; detail?: string; errors?: Record<string, string> };
+export type ContactState = {
+  ok: boolean;
+  message: string;
+  detail?: string;
+  errors?: Record<string, string>;
+  /** Solo en envíos reales: alimenta el evento contact_form_submit de GA4. */
+  sent?: { necesidad: string; plazo: string };
+};
 
 const buckets = new Map<string, { count: number; reset: number }>();
 function rateLimited(key: string): boolean {
@@ -66,7 +81,7 @@ export async function enviarContacto(_prev: ContactState, formData: FormData): P
     to,
     replyTo: d.contacto.includes("@") ? d.contacto : undefined,
     subject: `[andreabelalcazar.com] ${d.necesidad} · ${d.nombre}${d.organizacion ? ` (${d.organizacion})` : ""}`,
-    text: `Nombre: ${d.nombre}\nOrganización: ${d.organizacion || "-"}\nContacto: ${d.contacto}\nNecesidad: ${d.necesidad}\n\n${d.mensaje}`,
+    text: `Nombre: ${d.nombre}\nOrganización: ${d.organizacion || "-"}\nContacto: ${d.contacto}\nNecesidad: ${d.necesidad}\nPlazo: ${d.plazo}\n\n${d.mensaje}`,
   });
   if (error) {
     console.error("[contacto] Resend error:", error.name, error.message, { from, to });
@@ -76,5 +91,9 @@ export async function enviarContacto(_prev: ContactState, formData: FormData): P
       detail: `${error.name}: ${error.message} (from usado: ${from}; variable válida: ${fromOk})`,
     };
   }
-  return { ok: true, message: "Gracias, tu mensaje fue enviado. Te respondo personalmente." };
+  return {
+    ok: true,
+    message: "Gracias, tu mensaje fue enviado. Te respondo personalmente.",
+    sent: { necesidad: d.necesidad, plazo: d.plazo },
+  };
 }

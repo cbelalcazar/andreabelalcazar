@@ -17,7 +17,7 @@ const routes = [
   "/glosario/rueda-de-prensa",
   "/glosario/pauta-digital",
   "/glosario/desinformacion",
-  "/servicios/jefatura-de-prensa",
+  "/servicios/posicionamiento-en-medios",
   "/prensa",
   "/contacto",
 ];
@@ -67,13 +67,12 @@ test.describe("rutas de contenido", () => {
     const locs = sitemap.match(/<loc>/g)?.length ?? 0;
     expect(locs).toBeGreaterThanOrEqual(45);
     for (const p of [
-      "/servicios/jefatura-de-prensa",
+      "/servicios/posicionamiento-en-medios",
       "/casos/concejo-de-cali",
       "/glosario/vocero",
       "/glosario/rueda-de-prensa",
       "/glosario/pauta-digital",
       "/glosario/desinformacion",
-      "/servicios/jefatura-de-prensa",
       "/prensa",
       "/contacto",
     ]) {
@@ -106,4 +105,10 @@ test("ficha ampliada del glosario: respuesta, índice, FAQPage y enlaces a guía
   expect(ld).toContain('"alternateName"');
   await expect(page.locator('a[data-track="glossary_guide_click"]')).toHaveCount(1);
   await expect(page.locator('a[data-track="glossary_service_click"]')).toHaveCount(1);
+});
+
+test("la URL antigua de jefatura de prensa redirige de forma permanente (plan C-13)", async ({ request }) => {
+  const res = await request.get("/servicios/jefatura-de-prensa", { maxRedirects: 0 });
+  expect(res.status()).toBe(308);
+  expect(res.headers()["location"]).toContain("/servicios/posicionamiento-en-medios");
 });

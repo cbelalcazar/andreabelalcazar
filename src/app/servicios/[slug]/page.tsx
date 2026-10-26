@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: PageProps<"/servicios/[slug]"
   const s = getService(slug);
   if (!s) return {};
   return {
-    title: s.title,
+    // Con seoTitle se omite el sufijo de marca, igual que en el glosario (plan C-13)
+    title: s.seoTitle ? { absolute: s.seoTitle } : s.title,
     description: s.description,
     alternates: { canonical: `/servicios/${s.slug}` },
     openGraph: { title: s.title, description: s.description, url: `/servicios/${s.slug}`, type: "website" },

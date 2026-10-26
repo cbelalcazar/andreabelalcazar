@@ -41,6 +41,8 @@ export type PostMeta = z.infer<typeof PostSchema> & { slug: string; readingMinut
 
 export const ServiceSchema = z.object({
   title: z.string().min(8).max(90),
+  /** Título para Google escrito para una consulta real, sin sufijo de marca (plan C-13). */
+  seoTitle: z.string().min(20).max(60).optional(),
   description: z.string().min(100).max(170),
   eyebrow: z.string().min(3).max(60),
   forWho: z.array(z.string()).min(2).max(6),

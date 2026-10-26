@@ -15,7 +15,7 @@ export type Positioning = "institucional" | "completo";
 export const positioning: Positioning = "institucional";
 
 type ServiceSlug =
-  "jefatura-de-prensa" | "gestion-de-crisis" | "comunicacion-institucional" | "marketing-politico-digital";
+  "posicionamiento-en-medios" | "gestion-de-crisis" | "comunicacion-institucional" | "marketing-politico-digital";
 
 type Variant = {
   title: string;
@@ -40,7 +40,7 @@ const variants: Record<Positioning, Variant> = {
       badge: "Comunicación estratégica · Relaciones públicas · Cali, Colombia",
       lead: "Diseño estrategias de comunicación que fortalecen la imagen pública, posicionan a líderes e instituciones y generan presencia en los medios. Integro relaciones públicas, gestión de prensa y estrategia digital para que cada mensaje llegue a la audiencia correcta y construya credibilidad.",
     },
-    order: ["jefatura-de-prensa", "gestion-de-crisis", "comunicacion-institucional", "marketing-politico-digital"],
+    order: ["posicionamiento-en-medios", "gestion-de-crisis", "comunicacion-institucional", "marketing-politico-digital"],
     political: {
       title: "Comunicación política y estrategia digital",
       summary:
@@ -78,7 +78,7 @@ const variants: Record<Positioning, Variant> = {
       badge: "Marketing político · Comunicación estratégica · Relaciones públicas",
       lead: "Diseño estrategias de comunicación que fortalecen la imagen pública, posicionan a líderes y marcas y generan presencia en los medios. Integro marketing político, relaciones públicas, gestión de prensa y estrategia digital para que cada mensaje llegue a la audiencia correcta y construya credibilidad.",
     },
-    order: ["marketing-politico-digital", "jefatura-de-prensa", "gestion-de-crisis", "comunicacion-institucional"],
+    order: ["marketing-politico-digital", "posicionamiento-en-medios", "gestion-de-crisis", "comunicacion-institucional"],
     political: {
       title: "Marketing político y comunicación electoral",
       summary:
@@ -202,8 +202,8 @@ export type Service = {
 };
 
 const serviceById: Record<ServiceSlug, Service> = {
-  "jefatura-de-prensa": {
-    id: "jefatura-de-prensa",
+  "posicionamiento-en-medios": {
+    id: "posicionamiento-en-medios",
     icon: "mic",
     title: "Posicionamiento en medios y jefatura de prensa",
     summary:
@@ -257,7 +257,7 @@ export function solutionFor(slug: string): { title: string; order: number } | un
  * (plan G-12). Solo describe servicios ya publicados en /servicios.
  */
 export const serviceCta: Record<string, { title: string; text: string }> = {
-  "jefatura-de-prensa": {
+  "posicionamiento-en-medios": {
     title: "¿Necesitas presencia en los medios?",
     text: "Estrategia de prensa, relación con periodistas y preparación de voceros para líderes y organizaciones.",
   },
